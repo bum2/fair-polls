@@ -4,7 +4,7 @@ Plugin Name: Fair-Polls
 Plugin URI: https://github.com/bum2/fair-polls
 Description: Adapted from GaMerZ's WP-Polls v2.68 (forking https://github.com/lesterchan/fair-polls) to meet the Fair.Coop requirements: Allow to set 'full-member' as the minimum role for voting, and show results to others. Allows to delete only one user vote, also allows to link a related post thread (topic on a bbp forum, etc) and allows to set any answer (vote) as 'requiring arguments' (a reply or comment on the related debate post) from the same user, in a timespan. Fair-Polls (inheriting from WP-Polls) is customizable via templates and css, and supports multiple selection of answers.
 Version: 0.2
-Author: Lester 'GaMerZ' Chan, Bumbum
+Author: Bumbum
 Author URI: https://fair.coop
 Text Domain: fair-polls
 */
@@ -1852,15 +1852,18 @@ function polls_activate() {
 		}
 	}
 	// Add In Options (16 Records)
-	add_option('poll_template_voteheader', '<p style="text-align: center;"><strong>%POLL_QUESTION%</strong></p>'.
+	add_option('poll_template_voteheader', '<h5>%POLL_QUESTION%</h5>'.
+	'<p>%POST_LABEL% <a href="%POST_LINK%" target="_blank">%POST_NAME%</a></p>'.
 	'<div id="polls-%POLL_ID%-ans" class="fair-polls-ans">'.
 	'<ul class="fair-polls-ul">');
-	add_option('poll_template_votebody', '<li><input type="%POLL_CHECKBOX_RADIO%" id="poll-answer-%POLL_ANSWER_ID%" name="poll_%POLL_ID%" value="%POLL_ANSWER_ID%" /> <label for="poll-answer-%POLL_ANSWER_ID%">%POLL_ANSWER%</label></li>');
+	add_option('poll_template_votebody', '<li><input type="%POLL_CHECKBOX_RADIO%" id="poll-answer-%POLL_ANSWER_ID%" name="poll_%POLL_ID%" value="%POLL_ANSWER_ID%" /> <label for="poll-answer-%POLL_ANSWER_ID%" style="font-size:1.1em;">%POLL_ANSWER%</label></li>');
 	add_option('poll_template_votefooter', '</ul>'.
-	'<p style="text-align: center;"><input type="button" name="vote" value="   '.__('Vote', 'fair-polls').'   " class="Buttons" onclick="poll_vote(%POLL_ID%);" /></p>'.
+	'<p style="text-align: center;"><input type="button" name="vote" value="   '.__('Vote', 'fair-polls').'   " class="button submit" onclick="poll_vote(%POLL_ID%);" style="padding: 5px; font-weight: 600;"/></p>'.
 	'<p style="text-align: center;"><a href="#ViewPollResults" onclick="poll_result(%POLL_ID%); return false;" title="'.__('View Results Of This Poll', 'fair-polls').'">'.__('View Results', 'fair-polls').'</a></p>'.
 	'</div>');
-	add_option('poll_template_resultheader', '<p style="text-align: center;"><strong>%POLL_QUESTION%</strong></p>'.
+
+	add_option('poll_template_resultheader', '<h5>%POLL_QUESTION%</h5>'.
+	'<br />%POST_LABEL% <a href="%POST_LINK%" target="_blank">%POST_NAME%</a>'.
 	'<div id="polls-%POLL_ID%-ans" class="fair-polls-ans">'.
 	'<ul class="fair-polls-ul">');
 	add_option('poll_template_resultbody', '<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%'.__(',', 'fair-polls').' %POLL_ANSWER_VOTES% '.__('Votes', 'fair-polls').')</small><div class="pollbar" style="width: %POLL_ANSWER_IMAGEWIDTH%%;" title="%POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% '.__('Votes', 'fair-polls').')"></div></li>');

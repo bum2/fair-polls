@@ -76,6 +76,7 @@ if(!empty($_POST['do'])) {
 					$polla_answer = addslashes(trim($polla_answer));
 					$polla_reqarg = intval($polla_reqargs[$i]);
 					if( ! empty( $polla_answer ) ) {
+						if(empty($polla_reqarg)) $polla_reqarg = 0;
 						$add_poll_answers = $wpdb->query("INSERT INTO $wpdb->pollsa VALUES (0, $polla_qid, '$polla_answer', 0, $polla_reqarg)"); // bumbum: added reqarg
 						if (!$add_poll_answers) {
 							$text .= '<p style="color: red;">' . sprintf(__('Error In Adding Poll\'s Answer \'%s\'.', 'fair-polls'), stripslashes($polla_answer)) . '</p>';
@@ -83,7 +84,7 @@ if(!empty($_POST['do'])) {
 					} else {
 						$text .= '<p style="color: red;">' . __( 'Poll\'s Answer is empty.', 'fair-polls' ) . '</p>';
 					}
-					$i++
+					$i++;
 				}
 				// Update Lastest Poll ID To Poll Options
 				$latest_pollid = polls_latest_id();
@@ -125,18 +126,18 @@ $count = 0;
 	<table class="form-table">
 		<tfoot>
 			<tr>
-				<td width="20%">&nbsp;</td>
+				<td width="10%">&nbsp;</td>
 				<td width="70%"><input type="button" value="<?php _e('Add Answer', 'fair-polls') ?>" onclick="add_poll_answer_add();" class="button" /></td>
-				<td>&nbsp;</td>
+				<td width="20%">&nbsp;</td>
 			</tr>
 		</tfoot>
 		<tbody id="poll_answers">
 		<?php
 			for($i = 1; $i <= $poll_noquestion; $i++) {
 				echo "<tr id=\"poll-answer-$i\">\n";
-				echo "<th width=\"20%\" scope=\"row\" valign=\"top\">".sprintf(__('Answer %s', 'fair-polls'), number_format_i18n($i))."</th>\n";
+				echo "<th width=\"10%\" scope=\"row\" valign=\"top\">".sprintf(__('Answer %s', 'fair-polls'), number_format_i18n($i))."</th>\n";
 				echo "<td width=\"70%\"><input type=\"text\" size=\"50\" maxlength=\"200\" name=\"polla_answers[]\" />&nbsp;&nbsp;&nbsp;<input type=\"button\" value=\"".__('Remove', 'fair-polls')."\" onclick=\"remove_poll_answer_add(".$i.");\" class=\"button\" /></td>\n";
-				echo "<td width=\"10%\"><input type=\"checkbox\" name=\"polla_reqargs[]\" value=\"0\" />"
+				echo "<td width=\"20%\"><input type=\"checkbox\" name=\"polla_reqargs[]\" value=\"0\" onclick=\"check_poll_answer_reqarg(this);\" /> ".__('requires argument?', 'fair-polls')."</td>"; // bumbum
 				echo "</tr>\n";
 				$count++;
 			}

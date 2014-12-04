@@ -3,7 +3,7 @@ Contributors: GamerZ, Bumbum
 Donate link: http://lesterchan.net/site/donation/  
 Tags: poll, polls, polling, vote, booth, democracy, ajax, survey, post, widget  
 Requires at least: 3.9  
-Tested up to: 4.1  
+Tested up to: 4.0  
 Stable tag: 0.2
 
 Adds an AJAX poll system to your WordPress blog. You can also easily add a poll into your WordPress's blog post/page.

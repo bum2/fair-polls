@@ -173,10 +173,10 @@ function check_totalvotes() {
 	});
 }
 
-// Add Poll's Answer In Add Poll Page
+// Add Poll's Answer In Add Poll Page  // bumbum added reqarg
 function add_poll_answer_add() {
 	jQuery(document).ready(function($) {
-		$('#poll_answers').append('<tr id="poll-answer-' + count_poll_answer + '"><th width="20%" scope="row" valign="top"></th><td width="80%"><input type="text" size="50" maxlength="200" name="polla_answers[]" />&nbsp;&nbsp;&nbsp;<input type="button" value="' + pollsAdminL10n.text_remove_poll_answer + '" onclick="remove_poll_answer_add(' + count_poll_answer + ');" class="button" /></td></tr>');
+		$('#poll_answers').append('<tr id="poll-answer-' + count_poll_answer + '"><th width="10%" scope="row" valign="top"></th><td width="80%"><input type="text" size="50" maxlength="200" name="polla_answers[]" />&nbsp;&nbsp;&nbsp;<input type="button" value="' + pollsAdminL10n.text_remove_poll_answer + '" onclick="remove_poll_answer_add(' + count_poll_answer + ');" class="button" /></td><td width="20%"><input type="checkbox" name="polla_reqargs[]" value="0" onclick="check_poll_answer_reqarg(this);" /> requires argument?</td></tr>');
 		count_poll_answer++;
 		reorder_answer_num();
 	});
@@ -273,4 +273,13 @@ function check_vote_msg(input) {
 		}
 
 	});
+}
+function check_poll_answer_reqarg(input) {
+  jQuery(document).ready(function($) {
+    if($(input).is(':checked')) {
+      $(input).val(1);
+    } else {
+      $(input).val(0);
+    }
+  });
 }
