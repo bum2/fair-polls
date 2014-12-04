@@ -11,11 +11,9 @@ Adds an AJAX poll system to your WordPress blog. You can also easily add a poll 
 ## Description
 Adapted from GaMerZ's WP-Polls v2.68 (forking https://github.com/lesterchan/fair-polls) to meet the Fair.Coop requirements: Allow to set 'full-member' as the minimum role for voting, and show results to others. Allows to delete only one user vote, also allows to link a related post thread (topic on a bbp forum, etc) and allows to set any answer (vote) as 'requiring arguments' (a reply or comment on the related debate post) from the same user, in a timespan. Fair-Polls (inheriting from WP-Polls) is customizable via templates and css, and supports multiple selection of answers.
 
-### Build Status
-[![Build Status](https://travis-ci.org/lesterchan/wp-polls.svg?branch=master)](https://travis-ci.org/lesterchan/wp-polls)
-
 ### Development
 [https://github.com/bum2/fair-polls](https://github.com/bum2/fair-polls "https://github.com/bum2/fair-polls")
+
 [https://github.com/lesterchan/wp-polls](https://github.com/lesterchan/wp-polls "https://github.com/lesterchan/wp-polls")
 
 ### Translations
