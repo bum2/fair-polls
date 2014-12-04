@@ -117,3 +117,15 @@
 	color: #000000;
 	background-color: #FFFFFF;
 }
+.fair-polls-ul li:nth-child(01) .pollbar{ background: rgb(150, 190, 0)}
+.fair-polls-ul li:nth-child(02) .pollbar{ background:#eee001}
+.fair-polls-ul li:nth-child(03) .pollbar{ background:#d63f4a} /* ff8a3b */
+.fair-polls-ul li:nth-child(04) .pollbar{ background:#333}
+.fair-polls-ul li:nth-child(05) .pollbar{ background:#4ebbff}
+.fair-polls-ul li:nth-child(06) .pollbar{ background:#fbca54}
+.fair-polls-ul li:nth-child(07) .pollbar{ background:#aad34f}
+.fair-polls-ul li:nth-child(08) .pollbar{ background:#66cc9a}
+.fair-polls-ul li:nth-child(09) .pollbar{ background:#98CBCB}
+.fair-polls-ul li:nth-child(10) .pollbar{ background:#a67c52}
+.fair-polls-ul li .pollbar{ transition: background 0.7s ease-in-out }
+.fair-polls-ul li .pollbar:hover{ background:#8FA0C5 }

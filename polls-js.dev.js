@@ -55,6 +55,8 @@ function poll_vote(current_poll_id) {
 // Process Poll (User Click "Vote" Button)
 function poll_process() {
 	jQuery(document).ready(function($) {
+		$('.fair-polls-reqreplymsg').remove();
+		$('.fair-polls-replymsg').remove();
 		poll_nonce = $('#poll_' + poll_id + '_nonce').val();
 		if(pollsL10n.show_fading) {
 			$('#polls-' + poll_id).fadeTo('def', 0);
@@ -74,6 +76,8 @@ function poll_process() {
 // Poll's Result (User Click "View Results" Link)
 function poll_result(current_poll_id) {
 	jQuery(document).ready(function($) {
+		$('.fair-polls-reqreplymsg').remove();
+		$('.fair-polls-replymsg').remove();
 		if(!is_being_voted) {
 			set_is_being_voted(true);
 			poll_id = current_poll_id;
@@ -140,4 +144,23 @@ function poll_process_success(data) {
 // Set is_being_voted Status
 function set_is_being_voted(voted_status) {
 	is_being_voted = voted_status;
+}
+
+// bumbum
+function check_vote_msg(input) {
+	jQuery(document).ready(function($) {
+		if($(input).is(':checked')) {
+			if($(input).attr('reqarg') == 1){
+				$('.fair-polls-reqreplymsg').show();
+				$('.fair-polls-replymsg').hide();
+			} else {
+				$('.fair-polls-replymsg').show();
+				$('.fair-polls-reqreplymsg').hide();
+			}
+		} else {
+			$('.fair-polls-reqreplymsg').hide();
+			$('.fair-polls-replymsg').hide();
+		}
+
+	});
 }

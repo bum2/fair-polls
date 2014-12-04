@@ -224,7 +224,7 @@ function poll_scripts() {
 	}
 	$poll_ajax_style = get_option('poll_ajax_style');
 	$pollbar = get_option('poll_bar');
-	wp_enqueue_script('fair-polls', plugins_url('fair-polls/polls-js.js'), array('jquery'), FAIR_POLLS_VERSION, true);
+	wp_enqueue_script('fair-polls', plugins_url('fair-polls/polls-js.dev.js'), array('jquery'), FAIR_POLLS_VERSION, true); // bumbum .dev.
 	wp_localize_script('fair-polls', 'pollsL10n', array(
 		'ajax_url' => admin_url('admin-ajax.php'),
 		'text_wait' => __('Your last request is still being processed. Please wait a while ...', 'fair-polls'),
@@ -590,12 +590,14 @@ function display_pollvote($poll_id, $display_loading = true) {
 		}
 
 		// bumbum
-		$temp_pollvote .= "<div id=\"polls-$poll_question_id-replymsg\" class=\"fair-polls-replymsg\" style=\"display: none;\">";
-		$temp_pollvote .= __('You can share your voting arguments in the <a href="%POST_LINK%" target="_blank">related thread</a> where the debate takes place.', 'fair-polls');
-		$temp_pollvote .= "</div>";
-		$temp_pollvote .= "<div id=\"polls-$poll_question_id-replymsg\" class=\"fair-polls-reqreplymsg\" style=\"display: none;\">";
-		$temp_pollvote .= __('For this vote to be valid, please share your arguments clearly in <a href="%POST_LINK%" target="_blank">this</a> related thread within the next 24 hours or before the voting deadline.', 'fair-polls');
-		$temp_pollvote .= "</div>";
+		if($poll_question_postid) {
+			$temp_pollvote .= "<div id=\"polls-$poll_question_id-replymsg\" class=\"fair-polls-replymsg\" style=\"display: none;\">";
+			$temp_pollvote .= sprintf(__('You can share your voting arguments in the <a href="%s" target="_blank">related thread</a> where the debate takes place.', 'fair-polls'), $poll_postlink);
+			$temp_pollvote .= "</div>";
+			$temp_pollvote .= "<div id=\"polls-$poll_question_id-reqreplymsg\" class=\"fair-polls-reqreplymsg\" style=\"display: none;\">";
+			$temp_pollvote .= sprintf(__('For this vote to be valid, please share your arguments clearly in <a href="%s" target="_blank">this</a> related thread within the next 24 hours or before the voting deadline.', 'fair-polls'), $poll_postlink);
+			$temp_pollvote .= "</div>";
+		}
 		//
 
 	} else {

@@ -263,9 +263,9 @@ function check_vote_msg(input) {
 	jQuery(document).ready(function($) {
 		if($(input).is(':checked')) {
 			if($(input).attr('reqarg') == 1){
-				$('.fair-polls-reqreplymsg').show();
+				$('.fair-polls-reqreplymsg').css('display','block').show();
 			} else {
-				$('.fair-polls-replymsg').show();
+				$('.fair-polls-replymsg').css('display','block').show();
 			}
 		} else {
 			$('.fair-polls-reqreplymsg').hide();
