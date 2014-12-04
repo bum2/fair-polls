@@ -294,6 +294,15 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 				<?php _e('Display the related Post Link', 'fair-polls'); ?>
 			</td>
 		</tr>
+		<tr>
+			<td>
+				<strong>%POST_LABEL%</strong><br />
+				<?php _e('Display a \'related thread\' label', 'fair-polls'); ?>
+			</td>
+			<td>
+				&nbsp;
+			</td>
+		</tr>
 		<!-- // bumbum -->
 	</table>
 
@@ -314,7 +323,8 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 				<p style="margin: 2px 0">- %USER_ROLE%</p>
 				<p style="margin: 2px 0">- %POST_ID%</p>
 				<p style="margin: 2px 0">- %POST_NAME%</p>
-				<p style="margin: 2px 0">- %POST_LINK%</p><br />
+				<p style="margin: 2px 0">- %POST_LINK%</p>
+				<p style="margin: 2px 0">- %POST_LABEL%</p><br />
 				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'fair-polls'); ?>" onclick="poll_default_templates('voteheader');" class="button" />
 			</td>
 			<td valign="top"><textarea cols="80" rows="15" id="poll_template_voteheader" name="poll_template_voteheader"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_voteheader'))); ?></textarea></td>
@@ -343,7 +353,8 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 					<p style="margin: 2px 0">- %USER_ROLE%</p>
 					<p style="margin: 2px 0">- %POST_ID%</p>
 					<p style="margin: 2px 0">- %POST_NAME%</p>
-					<p style="margin: 2px 0">- %POST_LINK%</p><br />
+					<p style="margin: 2px 0">- %POST_LINK%</p>
+					<p style="margin: 2px 0">- %POST_LABEL%</p><br />
 				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'fair-polls'); ?>" onclick="poll_default_templates('votefooter');" class="button" />
 			</td>
 			<td valign="top"><textarea cols="80" rows="15" id="poll_template_votefooter" name="poll_template_votefooter"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_votefooter'))); ?></textarea></td>
@@ -367,7 +378,8 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 				<p style="margin: 2px 0">- %USER_ROLE%</p>
 				<p style="margin: 2px 0">- %POST_ID%</p>
 				<p style="margin: 2px 0">- %POST_NAME%</p>
-				<p style="margin: 2px 0">- %POST_LINK%</p><br />
+				<p style="margin: 2px 0">- %POST_LINK%</p>
+				<p style="margin: 2px 0">- %POST_LABEL%</p><br />
 				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'fair-polls'); ?>" onclick="poll_default_templates('resultheader');" class="button" />
 			</td>
 			<td valign="top"><textarea cols="80" rows="15" id="poll_template_resultheader" name="poll_template_resultheader"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultheader'))); ?></textarea></td>
@@ -423,7 +435,8 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 				<p style="margin: 2px 0">- %USER_ROLE%</p>
 				<p style="margin: 2px 0">- %POST_ID%</p>
 				<p style="margin: 2px 0">- %POST_NAME%</p>
-				<p style="margin: 2px 0">- %POST_LINK%</p><br />
+				<p style="margin: 2px 0">- %POST_LINK%</p>
+				<p style="margin: 2px 0">- %POST_LABEL%</p><br />
 				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'fair-polls'); ?>" onclick="poll_default_templates('resultfooter');" class="button" />
 			</td>
 			<td valign="top"><textarea cols="80" rows="15" id="poll_template_resultfooter" name="poll_template_resultfooter"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultfooter'))); ?></textarea></td>
@@ -447,7 +460,8 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 				<p style="margin: 2px 0">- %USER_ROLE%</p>
 				<p style="margin: 2px 0">- %POST_ID%</p>
 				<p style="margin: 2px 0">- %POST_NAME%</p>
-				<p style="margin: 2px 0">- %POST_LINK%</p><br />
+				<p style="margin: 2px 0">- %POST_LINK%</p>
+				<p style="margin: 2px 0">- %POST_LABEL%</p><br />
 				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'fair-polls'); ?>" onclick="poll_default_templates('resultfooter2');" class="button" />
 			</td>
 			<td valign="top"><textarea cols="80" rows="15" id="poll_template_resultfooter2" name="poll_template_resultfooter2"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultfooter2'))); ?></textarea></td>

@@ -513,7 +513,8 @@ function display_pollvote($poll_id, $display_loading = true) {
 		'%USER_ROLE%' => $poll_user_role, // bumbum
 		'%POST_NAME%' => $poll_postid_text, // bumbum
 		'%POST_ID%' => $poll_question_postid, // bumbum
-		'%POST_LINK%' => $poll_postlink // bumbum
+		'%POST_LINK%' => $poll_postlink, // bumbum
+		'%POST_LABEL%' => __('Related Debate: ','fair-polls') // bumbum
 	));
 
 	// Get Poll Answers Data  // bumbum: added req_arg
@@ -572,7 +573,8 @@ function display_pollvote($poll_id, $display_loading = true) {
 			'%USER_ROLE%' => $poll_user_role, // bumbum
 			'%POST_NAME%' => $poll_postid_text, // bumbum
 			'%POST_ID%' => $poll_question_postid, // bumbum
-			'%POST_LINK%' => $poll_postlink // bumbum
+			'%POST_LINK%' => $poll_postlink, // bumbum
+			'%POST_LABEL%' => __('Related Debate: ','fair-polls') // bumbum
 		));
 
 		// Print Out Voting Form Footer Template
@@ -670,6 +672,7 @@ function display_pollresult($poll_id, $user_voted = '', $display_loading = true)
 	$template_question = str_replace("%POST_NAME%", $poll_postid_text, $template_question);
 	$template_question = str_replace("%POST_ID%", $poll_question_postid, $template_question);
 	$template_question = str_replace("%POST_LINK%", $poll_postlink, $template_question);
+	$template_question = str_replace("%POST_LABEL%", __('Related Debate: ','fair-polls'), $template_question);
 	//
 
 	// Get Poll Answers Data  // bumbum added req_arg
@@ -795,6 +798,7 @@ function display_pollresult($poll_id, $user_voted = '', $display_loading = true)
 		$template_footer = str_replace("%POST_NAME%", $poll_postid_text, $template_footer); // bumbum
 		$template_footer = str_replace("%POST_ID%", $poll_question_postid, $template_footer); // bumbum
 		$template_footer = str_replace("%POST_LINK%", $poll_postlink, $template_footer); // bumbum
+		$template_footer = str_replace("%POST_LABEL%", __('Related Debate: ','fair-polls'), $template_footer); // bumbum
 
 		// Print Out Results Footer Template
 		$temp_pollresult .= "\t\t$template_footer\n";

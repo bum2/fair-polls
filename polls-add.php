@@ -69,17 +69,21 @@ if(!empty($_POST['do'])) {
 				}
 				// Add Poll Answers
 				$polla_answers = $_POST['polla_answers'];
+				$polla_reqargs = $_POST['polla_reqargs'];
 				$polla_qid = intval($wpdb->insert_id);
+				$i = 0;
 				foreach ($polla_answers as $polla_answer) {
 					$polla_answer = addslashes(trim($polla_answer));
+					$polla_reqarg = intval($polla_reqargs[$i]);
 					if( ! empty( $polla_answer ) ) {
-						$add_poll_answers = $wpdb->query("INSERT INTO $wpdb->pollsa VALUES (0, $polla_qid, '$polla_answer', 0, 0)"); // bumbum: added 0
+						$add_poll_answers = $wpdb->query("INSERT INTO $wpdb->pollsa VALUES (0, $polla_qid, '$polla_answer', 0, $polla_reqarg)"); // bumbum: added reqarg
 						if (!$add_poll_answers) {
 							$text .= '<p style="color: red;">' . sprintf(__('Error In Adding Poll\'s Answer \'%s\'.', 'fair-polls'), stripslashes($polla_answer)) . '</p>';
 						}
 					} else {
 						$text .= '<p style="color: red;">' . __( 'Poll\'s Answer is empty.', 'fair-polls' ) . '</p>';
 					}
+					$i++
 				}
 				// Update Lastest Poll ID To Poll Options
 				$latest_pollid = polls_latest_id();
@@ -122,7 +126,8 @@ $count = 0;
 		<tfoot>
 			<tr>
 				<td width="20%">&nbsp;</td>
-				<td width="80%"><input type="button" value="<?php _e('Add Answer', 'fair-polls') ?>" onclick="add_poll_answer_add();" class="button" /></td>
+				<td width="70%"><input type="button" value="<?php _e('Add Answer', 'fair-polls') ?>" onclick="add_poll_answer_add();" class="button" /></td>
+				<td>&nbsp;</td>
 			</tr>
 		</tfoot>
 		<tbody id="poll_answers">
@@ -130,14 +135,15 @@ $count = 0;
 			for($i = 1; $i <= $poll_noquestion; $i++) {
 				echo "<tr id=\"poll-answer-$i\">\n";
 				echo "<th width=\"20%\" scope=\"row\" valign=\"top\">".sprintf(__('Answer %s', 'fair-polls'), number_format_i18n($i))."</th>\n";
-				echo "<td width=\"80%\"><input type=\"text\" size=\"50\" maxlength=\"200\" name=\"polla_answers[]\" />&nbsp;&nbsp;&nbsp;<input type=\"button\" value=\"".__('Remove', 'fair-polls')."\" onclick=\"remove_poll_answer_add(".$i.");\" class=\"button\" /></td>\n";
+				echo "<td width=\"70%\"><input type=\"text\" size=\"50\" maxlength=\"200\" name=\"polla_answers[]\" />&nbsp;&nbsp;&nbsp;<input type=\"button\" value=\"".__('Remove', 'fair-polls')."\" onclick=\"remove_poll_answer_add(".$i.");\" class=\"button\" /></td>\n";
+				echo "<td width=\"10%\"><input type=\"checkbox\" name=\"polla_reqargs[]\" value=\"0\" />"
 				echo "</tr>\n";
 				$count++;
 			}
 		?>
 		</tbody>
 	</table>
-	
+
 	<!-- // bumbum -->
 	<!-- Poll Post-Topic-Page Related Discussion -->
 	<h3><?php _e('Poll Debate Post Related', 'fair-polls') ?></h3>
