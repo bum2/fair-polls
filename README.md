@@ -1,20 +1,21 @@
-# WP-Polls
-Contributors: GamerZ  
+# Fair-Polls
+Contributors: GamerZ, Bumbum  
 Donate link: http://lesterchan.net/site/donation/  
 Tags: poll, polls, polling, vote, booth, democracy, ajax, survey, post, widget  
 Requires at least: 3.9  
 Tested up to: 4.1  
-Stable tag: 2.68  
+Stable tag: 0.2
 
 Adds an AJAX poll system to your WordPress blog. You can also easily add a poll into your WordPress's blog post/page.
 
 ## Description
-WP-Polls is extremely customizable via templates and css styles and there are tons of options for you to choose to ensure that WP-Polls runs the way you wanted. It now supports multiple selection of answers.
+Adapted from GaMerZ's WP-Polls v2.68 (forking https://github.com/lesterchan/fair-polls) to meet the Fair.Coop requirements: Allow to set 'full-member' as the minimum role for voting, and show results to others. Allows to delete only one user vote, also allows to link a related post thread (topic on a bbp forum, etc) and allows to set any answer (vote) as 'requiring arguments' (a reply or comment on the related debate post) from the same user, in a timespan. Fair-Polls (inheriting from WP-Polls) is customizable via templates and css, and supports multiple selection of answers.
 
 ### Build Status
 [![Build Status](https://travis-ci.org/lesterchan/wp-polls.svg?branch=master)](https://travis-ci.org/lesterchan/wp-polls)
 
 ### Development
+[https://github.com/bum2/fair-polls](https://github.com/bum2/fair-polls "https://github.com/bum2/fair-polls")
 [https://github.com/lesterchan/wp-polls](https://github.com/lesterchan/wp-polls "https://github.com/lesterchan/wp-polls")
 
 ### Translations

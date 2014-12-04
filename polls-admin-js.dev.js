@@ -58,6 +58,30 @@ function delete_this_poll_logs(poll_id, poll_confirm, nonce) {
 	}
 }
 
+// bumbum
+// Delete Individual Vote Log
+function delete_this_vote_log(poll_id, username, pollip_aid, poll_confirm, nonce) {
+	delete_vote_log_confirm = confirm(poll_confirm);
+	if(delete_vote_log_confirm) {
+		jQuery(document).ready(function($) {
+			global_poll_id = poll_id;
+			$.ajax({type: 'POST', url: pollsAdminL10n.admin_ajax_url, data: 'do=' + pollsAdminL10n.text_delete_vote_log + '&pollq_id=' + poll_id + '&username=' + username + '&pollip_aid='+pollip_aid+'&delete_logs_yes=yes&action=polls-admin&_ajax_nonce=' + nonce, cache: false, success: function (data) {
+				$('#message').html(data);
+				$('#message').show();
+				$('#poll_logs_display tr').each(function(){
+					if($(this).find("td:contains('"+username+"')").length > 0){
+						$(this).remove();
+					}
+				})
+				//$('#poll_logs').html(pollsAdminL10n.text_no_poll_logs);
+				//$('#poll_logs_display').hide();
+				//$('#poll_logs_display_none').show();
+			}});
+		});
+	}
+}
+//
+
 // Delete Poll Answer
 function delete_poll_ans(poll_id, poll_aid, poll_aid_vote, poll_confirm, nonce) {
 	delete_poll_ans_confirm = confirm(poll_confirm);
@@ -168,8 +192,8 @@ function remove_poll_answer_add(poll_answer_id) {
 
 // Add Poll's Answer In Edit Poll Page
 function add_poll_answer_edit() {
-	jQuery(document).ready(function($) {
-		$('#poll_answers').append('<tr id="poll-answer-new-' + count_poll_answer_new + '"><th width="20%" scope="row" valign="top"></th><td width="60%"><input type="text" size="50" maxlength="200" name="polla_answers_new[]" />&nbsp;&nbsp;&nbsp;<input type="button" value="' + pollsAdminL10n.text_remove_poll_answer + '" onclick="remove_poll_answer_edit(' + count_poll_answer_new + ');" class="button" /></td><td width="20%" align="' + pollsAdminL10n.text_direction + '">0 <input type="text" size="4" name="polla_answers_new_votes[]" value="0" onblur="check_totalvotes();" /></td></tr>');
+	jQuery(document).ready(function($) { // bumbum: added req_arg
+		$('#poll_answers').append('<tr id="poll-answer-new-' + count_poll_answer_new + '"><th width="10%" scope="row" valign="top"></th><td width="50%"><input type="text" size="50" maxlength="200" name="polla_answers_new[]" />&nbsp;&nbsp;&nbsp;<input type="button" value="' + pollsAdminL10n.text_remove_poll_answer + '" onclick="remove_poll_answer_edit(' + count_poll_answer_new + ');" class="button" /></td><td width="20%"><input type="checkbox" name="polla_answers_new_reqargs[]" value="0" onclick="check_require_argument(' + count_poll_answer_new + ');" /></td><td width="20%" align="' + pollsAdminL10n.text_direction + '">0 <input type="text" size="4" name="polla_answers_new_votes[]" value="0" onblur="check_totalvotes();" /></td></tr>');
 		count_poll_answer_new++;
 		reorder_answer_num();
 	});
@@ -215,5 +239,38 @@ function check_pollexpiry() {
 		} else {
 			$('#pollq_expiry').show();
 		}
+	});
+}
+
+
+// bumbum: to manage admin screen DOM...
+function check_require_argument(poll_answer_id) {
+	jQuery(document).ready(function($) {
+		if($('#polla_req_arg-'+poll_answer_id).is(':checked')) {
+			$('#polla_req_arg-'+poll_answer_id).val(1);
+		} else {
+			$('#polla_req_arg-'+poll_answer_id).val(0);
+		}
+	});
+	//return;
+}
+function check_poll_postid(input) {
+	jQuery(document).ready(function($) {
+		//alert($(input).val());
+	});
+}
+function check_vote_msg(input) {
+	jQuery(document).ready(function($) {
+		if($(input).is(':checked')) {
+			if($(input).attr('reqarg') == 1){
+				$('.fair-polls-reqreplymsg').show();
+			} else {
+				$('.fair-polls-replymsg').show();
+			}
+		} else {
+			$('.fair-polls-reqreplymsg').hide();
+			$('.fair-polls-replymsg').hide();
+		}
+
 	});
 }
