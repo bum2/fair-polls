@@ -1863,7 +1863,7 @@ function polls_activate() {
 	'</div>');
 
 	add_option('poll_template_resultheader', '<h5>%POLL_QUESTION%</h5>'.
-	'<br />%POST_LABEL% <a href="%POST_LINK%" target="_blank">%POST_NAME%</a>'.
+	'<p>%POST_LABEL% <a href="%POST_LINK%" target="_blank">%POST_NAME%</a></p>'.
 	'<div id="polls-%POLL_ID%-ans" class="fair-polls-ans">'.
 	'<ul class="fair-polls-ul">');
 	add_option('poll_template_resultbody', '<li>%POLL_ANSWER% <small>(%POLL_ANSWER_PERCENTAGE%%'.__(',', 'fair-polls').' %POLL_ANSWER_VOTES% '.__('Votes', 'fair-polls').')</small><div class="pollbar" style="width: %POLL_ANSWER_IMAGEWIDTH%%;" title="%POLL_ANSWER_TEXT% (%POLL_ANSWER_PERCENTAGE%% | %POLL_ANSWER_VOTES% '.__('Votes', 'fair-polls').')"></div></li>');
