@@ -71,7 +71,7 @@ if(!empty($_POST['do'])) {
 				$polla_answers = $_POST['polla_answers'];
 				$polla_reqargs = $_POST['polla_reqargs'];
 				$polla_qid = intval($wpdb->insert_id);
-				$i = 0;
+				$i = count($polla_answers) - 1;
 				foreach ($polla_answers as $polla_answer) {
 					$polla_answer = addslashes(trim($polla_answer));
 					$polla_reqarg = intval($polla_reqargs[$i]);
@@ -84,7 +84,7 @@ if(!empty($_POST['do'])) {
 					} else {
 						$text .= '<p style="color: red;">' . __( 'Poll\'s Answer is empty.', 'fair-polls' ) . '</p>';
 					}
-					$i++;
+					$i--;
 				}
 				// Update Lastest Poll ID To Poll Options
 				$latest_pollid = polls_latest_id();

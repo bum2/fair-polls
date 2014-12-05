@@ -1856,7 +1856,7 @@ function polls_activate() {
 	'<p>%POST_LABEL% <a href="%POST_LINK%" target="_blank">%POST_NAME%</a></p>'.
 	'<div id="polls-%POLL_ID%-ans" class="fair-polls-ans">'.
 	'<ul class="fair-polls-ul">');
-	add_option('poll_template_votebody', '<li><input type="%POLL_CHECKBOX_RADIO%" id="poll-answer-%POLL_ANSWER_ID%" name="poll_%POLL_ID%" value="%POLL_ANSWER_ID%" /> <label for="poll-answer-%POLL_ANSWER_ID%" style="font-size:1.1em;">%POLL_ANSWER%</label></li>');
+	add_option('poll_template_votebody', '<li><input type="%POLL_CHECKBOX_RADIO%" id="poll-answer-%POLL_ANSWER_ID%" name="poll_%POLL_ID%" value="%POLL_ANSWER_ID%" onclick="check_vote_msg(this);" reqarg="%POLL_ANSWER_REQARG%" /> <label for="poll-answer-%POLL_ANSWER_ID%" style="font-size:1.1em;">%POLL_ANSWER%</label></li>');
 	add_option('poll_template_votefooter', '</ul>'.
 	'<p style="text-align: center;"><input type="button" name="vote" value="   '.__('Vote', 'fair-polls').'   " class="button submit" onclick="poll_vote(%POLL_ID%);" style="padding: 5px; font-weight: 600;"/></p>'.
 	'<p style="text-align: center;"><a href="#ViewPollResults" onclick="poll_result(%POLL_ID%); return false;" title="'.__('View Results Of This Poll', 'fair-polls').'">'.__('View Results', 'fair-polls').'</a></p>'.
