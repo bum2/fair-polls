@@ -139,7 +139,7 @@ function get_poll($temp_poll_id = 0, $display = true) {
 			$poll_close = 0;
 		}
 		if(intval($check_voted) > 0 || (is_array($check_voted) && sizeof($check_voted) > 0) || ($poll_active == 0 && $poll_close == 1)) {
-			if(check_allowtovote()){ // bumbum changevote
+			if(check_allowtovote() && intval(get_option('poll_changevote')) > 0){ // bumbum changevote
 				if($display) {
 					echo display_pollvote($poll_id, true, true);
 					return;
@@ -791,7 +791,7 @@ function display_pollresult($poll_id, $user_voted = '', $display_loading = true)
 		if($poll_question_active == 0 || !check_allowtovote()) {
 			$template_footer = stripslashes(get_option('poll_template_resultfooter'));
 		} else {
-			if(!empty($user_voted)) { // bumbum: added change-vote resultfooter3
+			if(!empty($user_voted) && intval(get_option('poll_changevote')) > 0) { // bumbum: added change-vote resultfooter3
 				$template_footer = stripslashes(get_option('poll_template_resultfooter3'));
 			} else {
 				$template_footer = stripslashes(get_option('poll_template_resultfooter2'));
@@ -1484,77 +1484,83 @@ function vote_poll() {
 
 						} else { // bumbum: User HAS VOTED before, is a CHANGING VOTE
 
-							//printf(__('You Had Already Voted For This Poll (ID #%s), Changing Vote.', 'fair-polls'), $poll_id);
-							// bumbum: erase old vote and insert new one...
-							if (!empty($user_identity)) {
-								$pollip_user = htmlspecialchars(addslashes($user_identity));
-							} elseif (!empty($_COOKIE['comment_author_' . COOKIEHASH])) {
-								$pollip_user = htmlspecialchars(addslashes($_COOKIE['comment_author_' . COOKIEHASH]));
-							} else {
-								$pollip_user = __('Guest', 'fair-polls');
-							}
-							$pollip_userid = intval($user_ID);
-							$pollip_ip = get_ipaddress();
-							$pollip_host = esc_attr(@gethostbyaddr($pollip_ip));
-							$pollip_timestamp = current_time('timestamp');
-							// Only Create Cookie If User Choose Logging Method 1 Or 2
-							$poll_logging_method = intval(get_option('poll_logging_method'));
-							if ($poll_logging_method == 1 || $poll_logging_method == 3) {
-								$cookie_expiry = intval(get_option('poll_cookielog_expiry'));
-								if ($cookie_expiry == 0) {
-									$cookie_expiry = 30000000;
-								}
-								$vote_cookie = setcookie('voted_' . $poll_id, $poll_aid, ($pollip_timestamp + $cookie_expiry), apply_filters('wp_polls_cookiepath', SITECOOKIEPATH));
-							}
+							if(intval(get_option('poll_changevote')) > 0) {
 
-							// Erase Old Votes
-							$get_old_votes = $wpdb->query("SELECT pollip_aid FROM $wpdb->pollsip WHERE pollip_qid = $poll_id AND pollip_user = $pollip_user");
-							$o = 0;
-							$old_votes = array();
-							foreach($get_old_votes as $old_vote) {
-								$old_vote_aid = intval($old_vote);
-								$erase_vote_sip = $wpdb->query("DELETE FROM $wpdb->pollsip WHERE pollip_qid = $poll_id AND pollip_user = $pollip_user AND pollip_aid = $old_vote_aid");
-								if(!$erase_vote_sip) {
-									printf(__('Unable To Erase Poll Old User Votes (table pollsip). Poll ID #%s, Answer ID #%s', 'fair-polls'), $poll_id, $old_vote_aid);
-									return false;
+								// bumbum: erase old vote and insert new one...
+								if (!empty($user_identity)) {
+									$pollip_user = htmlspecialchars(addslashes($user_identity));
+								} elseif (!empty($_COOKIE['comment_author_' . COOKIEHASH])) {
+									$pollip_user = htmlspecialchars(addslashes($_COOKIE['comment_author_' . COOKIEHASH]));
 								} else {
-									$old_votes[$o] = $old_vote_aid;
-									$o++;
+									$pollip_user = __('Guest', 'fair-polls');
 								}
-							}
-							for($a=0; $a<$o; $a++){
-								$old_polla_aid = $old_votes[$a];
-								$erase_vote_sa = $wpdb->query("UPDATE $wpdb->pollsa SET polla_votes = (polla_votes-1) WHERE polla_qid = $poll_id AND polla_aid = $old_polla_aid");
-								if(!$erase_vote_sa) {
-									printf(__('Unable To Erase Poll Answers Votes (table pollsa). Poll ID #%s, Answer ID #%s', 'fair-polls'), $poll_id, $old_polla_aid);
+								$pollip_userid = intval($user_ID);
+								$pollip_ip = get_ipaddress();
+								$pollip_host = esc_attr(@gethostbyaddr($pollip_ip));
+								$pollip_timestamp = current_time('timestamp');
+								// Only Create Cookie If User Choose Logging Method 1 Or 2
+								$poll_logging_method = intval(get_option('poll_logging_method'));
+								if ($poll_logging_method == 1 || $poll_logging_method == 3) {
+									$cookie_expiry = intval(get_option('poll_cookielog_expiry'));
+									if ($cookie_expiry == 0) {
+										$cookie_expiry = 30000000;
+									}
+									$vote_cookie = setcookie('voted_' . $poll_id, $poll_aid, ($pollip_timestamp + $cookie_expiry), apply_filters('wp_polls_cookiepath', SITECOOKIEPATH));
+								}
+
+								// Erase Old Votes
+								$get_old_votes = $wpdb->query("SELECT pollip_aid FROM $wpdb->pollsip WHERE pollip_qid = $poll_id AND pollip_user = $pollip_user");
+								$o = 0;
+								$old_votes = array();
+								foreach($get_old_votes as $old_vote) {
+									$old_vote_aid = intval($old_vote);
+									$erase_vote_sip = $wpdb->query("DELETE FROM $wpdb->pollsip WHERE pollip_qid = $poll_id AND pollip_user = $pollip_user AND pollip_aid = $old_vote_aid");
+									if(!$erase_vote_sip) {
+										printf(__('Unable To Erase Poll Old User Votes (table pollsip). Poll ID #%s, Answer ID #%s', 'fair-polls'), $poll_id, $old_vote_aid);
+										return false;
+									} else {
+										$old_votes[$o] = $old_vote_aid;
+										$o++;
+									}
+								}
+								for($a=0; $a<$o; $a++){
+									$old_polla_aid = $old_votes[$a];
+									$erase_vote_sa = $wpdb->query("UPDATE $wpdb->pollsa SET polla_votes = (polla_votes-1) WHERE polla_qid = $poll_id AND polla_aid = $old_polla_aid");
+									if(!$erase_vote_sa) {
+										printf(__('Unable To Erase Poll Answers Votes (table pollsa). Poll ID #%s, Answer ID #%s', 'fair-polls'), $poll_id, $old_polla_aid);
+										return false;
+									}
+								}
+								$vote_qd = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_totalvotes = (pollq_totalvotes-" . sizeof($old_votes) . ") WHERE pollq_id = $poll_id AND pollq_active = 1");
+								if(!$vote_qd) {
+									printf(__('Unable To Erase Poll Question Totals (table pollsq). Poll ID #%s.', 'fair-polls'), $poll_id);
 									return false;
 								}
-							}
-							$vote_qd = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_totalvotes = (pollq_totalvotes-" . sizeof($old_votes) . ") WHERE pollq_id = $poll_id AND pollq_active = 1");
-							if(!$vote_qd) {
-								printf(__('Unable To Erase Poll Question Totals (table pollsq). Poll ID #%s.', 'fair-polls'), $poll_id);
-								return false;
+
+								// Now insert new votes
+								$i = 0;
+								foreach ($poll_aid_array as $polla_aid) {
+									$update_polla_votes = $wpdb->query("UPDATE $wpdb->pollsa SET polla_votes = (polla_votes+1) WHERE polla_qid = $poll_id AND polla_aid = $polla_aid");
+									if (!$update_polla_votes) {
+										unset($poll_aid_array[$i]);
+									}
+									$i++;
+								}
+								$vote_q = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_totalvotes = (pollq_totalvotes+" . sizeof($poll_aid_array) . "), pollq_totalvoters = (pollq_totalvoters+1) WHERE pollq_id = $poll_id AND pollq_active = 1");
+								if ($vote_q) {
+									foreach ($poll_aid_array as $polla_aid) {
+										$wpdb->query("INSERT INTO $wpdb->pollsip VALUES (0, $poll_id, $polla_aid, '$pollip_ip', '$pollip_host', '$pollip_timestamp', '$pollip_user', $pollip_userid)");
+									}
+									echo display_pollresult($poll_id, $poll_aid_array, false);
+								} else {
+									printf(__('Unable To Update Poll Total Votes And Poll Total Voters. Poll ID #%s', 'fair-polls'), $poll_id);
+								} // End if($vote_a)
+								// bumbum
+
+							} else {
+							  printf(__('You Had Already Voted For This Poll (ID #%s), Changing Vote.', 'fair-polls'), $poll_id);
 							}
 
-							// Now insert new votes
-							$i = 0;
-							foreach ($poll_aid_array as $polla_aid) {
-								$update_polla_votes = $wpdb->query("UPDATE $wpdb->pollsa SET polla_votes = (polla_votes+1) WHERE polla_qid = $poll_id AND polla_aid = $polla_aid");
-								if (!$update_polla_votes) {
-									unset($poll_aid_array[$i]);
-								}
-								$i++;
-							}
-							$vote_q = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_totalvotes = (pollq_totalvotes+" . sizeof($poll_aid_array) . "), pollq_totalvoters = (pollq_totalvoters+1) WHERE pollq_id = $poll_id AND pollq_active = 1");
-							if ($vote_q) {
-								foreach ($poll_aid_array as $polla_aid) {
-									$wpdb->query("INSERT INTO $wpdb->pollsip VALUES (0, $poll_id, $polla_aid, '$pollip_ip', '$pollip_host', '$pollip_timestamp', '$pollip_user', $pollip_userid)");
-								}
-								echo display_pollresult($poll_id, $poll_aid_array, false);
-							} else {
-								printf(__('Unable To Update Poll Total Votes And Poll Total Voters. Poll ID #%s', 'fair-polls'), $poll_id);
-							} // End if($vote_a)
-							// bumbum
 
 						} // End if($check_voted)
 					} else {

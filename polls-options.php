@@ -50,6 +50,7 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 	$poll_logging_method = intval($_POST['poll_logging_method']);
 	$poll_cookielog_expiry = intval($_POST['poll_cookielog_expiry']);
 	$poll_allowtovote = intval($_POST['poll_allowtovote']);
+	$poll_changevote = intval($_POST['poll_changevote']); // bumbum
 	$update_poll_queries = array();
 	$update_poll_text = array();
 	$update_poll_queries[] = update_option('poll_bar', $poll_bar);
@@ -67,6 +68,7 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 	$update_poll_queries[] = update_option('poll_logging_method', $poll_logging_method);
 	$update_poll_queries[] = update_option('poll_cookielog_expiry', $poll_cookielog_expiry);
 	$update_poll_queries[] = update_option('poll_allowtovote', $poll_allowtovote);
+	$update_poll_queries[] = update_option('poll_changevote', $poll_changevote); // bumbum
 	$update_poll_text[] = __('Poll Bar Style', 'fair-polls');
 	$update_poll_text[] = __('Poll AJAX Style', 'fair-polls');
 	$update_poll_text[] = __('Sort Poll Answers By Option', 'fair-polls');
@@ -82,6 +84,7 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 	$update_poll_text[] = __('Logging Method', 'fair-polls');
 	$update_poll_text[] = __('Cookie And Log Expiry Option', 'fair-polls');
 	$update_poll_text[] = __('Allow To Vote Option', 'fair-polls');
+	$update_poll_text[] = __('Allow To Change Vote Option', 'fair-polls'); // bumbum
 	$i=0;
 	$text = '';
 	foreach($update_poll_queries as $update_poll_query) {
@@ -272,6 +275,20 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 					<option value="1"<?php selected('1', get_option('poll_allowtovote')); ?>><?php _e('Registered Users Only', 'fair-polls'); ?></option>
 					<option value="2"<?php selected('2', get_option('poll_allowtovote')); ?>><?php _e('Registered Users And Guests', 'fair-polls'); ?></option>
 					<option value="3"<?php selected('3', get_option('poll_allowtovote')); ?>><?php _e('Full-Members Only', 'fair-polls'); // bumbum ?></option>
+				</select>
+			</td>
+		</tr>
+	</table>
+
+	<!-- bumbum:  Allow To Change Vote -->
+	<h3><?php _e('Allow To Change Vote', 'fair-polls'); ?></h3>
+	<table class="form-table">
+		<tr>
+			<th scope="row" valign="top"><?php _e('Allow Users To Change The Vote?', 'fair-polls'); ?></th>
+			<td>
+				<select name="poll_changevote" size="1">
+					<option value="0"<?php selected('0', get_option('poll_changevote')); ?>><?php _e('No', 'fair-polls'); ?></option>
+					<option value="1"<?php selected('1', get_option('poll_changevote')); ?>><?php _e('Yes', 'fair-polls'); ?></option>
 				</select>
 			</td>
 		</tr>
