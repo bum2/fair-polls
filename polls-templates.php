@@ -32,12 +32,15 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 	check_admin_referer('fair-polls_templates');
 	$poll_template_voteheader = trim($_POST['poll_template_voteheader']);
 	$poll_template_votebody = trim($_POST['poll_template_votebody']);
+	$poll_template_votebody2 = trim($_POST['poll_template_votebody2']); // bumbum
 	$poll_template_votefooter = trim($_POST['poll_template_votefooter']);
+	$poll_template_votefooter2 = trim($_POST['poll_template_votefooter2']); // bumbum
 	$poll_template_resultheader = trim($_POST['poll_template_resultheader']);
 	$poll_template_resultbody = trim($_POST['poll_template_resultbody']);
 	$poll_template_resultbody2 = trim($_POST['poll_template_resultbody2']);
 	$poll_template_resultfooter = trim($_POST['poll_template_resultfooter']);
 	$poll_template_resultfooter2 = trim($_POST['poll_template_resultfooter2']);
+	$poll_template_resultfooter3 = trim($_POST['poll_template_resultfooter3']); // bumbum
 	$poll_template_pollarchivelink = trim($_POST['poll_template_pollarchivelink']);
 	$poll_template_pollarchiveheader = trim($_POST['poll_template_pollarchiveheader']);
 	$poll_template_pollarchivefooter = trim($_POST['poll_template_pollarchivefooter']);
@@ -49,12 +52,15 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 	$update_poll_text = array();
 	$update_poll_queries[] = update_option('poll_template_voteheader', $poll_template_voteheader);
 	$update_poll_queries[] = update_option('poll_template_votebody', $poll_template_votebody);
+	$update_poll_queries[] = update_option('poll_template_votebody2', $poll_template_votebody2); // bumbum
 	$update_poll_queries[] = update_option('poll_template_votefooter', $poll_template_votefooter);
+	$update_poll_queries[] = update_option('poll_template_votefooter2', $poll_template_votefooter2); // bumbum
 	$update_poll_queries[] = update_option('poll_template_resultheader', $poll_template_resultheader);
 	$update_poll_queries[] = update_option('poll_template_resultbody', $poll_template_resultbody);
 	$update_poll_queries[] = update_option('poll_template_resultbody2', $poll_template_resultbody2);
 	$update_poll_queries[] = update_option('poll_template_resultfooter', $poll_template_resultfooter);
 	$update_poll_queries[] = update_option('poll_template_resultfooter2', $poll_template_resultfooter2);
+	$update_poll_queries[] = update_option('poll_template_resultfooter3', $poll_template_resultfooter3); // bumbum
 	$update_poll_queries[] = update_option('poll_template_pollarchivelink', $poll_template_pollarchivelink);
 	$update_poll_queries[] = update_option('poll_template_pollarchiveheader', $poll_template_pollarchiveheader);
 	$update_poll_queries[] = update_option('poll_template_pollarchivefooter', $poll_template_pollarchivefooter);
@@ -64,12 +70,15 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 	$update_poll_queries[] = update_option('poll_template_error', $poll_template_error);
 	$update_poll_text[] = __('Voting Form Header Template', 'fair-polls');
 	$update_poll_text[] = __('Voting Form Body Template', 'fair-polls');
+	$update_poll_text[] = __('Voting Form Body2 Template', 'fair-polls'); // bumbum
 	$update_poll_text[] = __('Voting Form Footer Template', 'fair-polls');
+	$update_poll_text[] = __('Voting Form Footer2 Template', 'fair-polls'); // bumbum
 	$update_poll_text[] = __('Result Header Template', 'fair-polls');
 	$update_poll_text[] = __('Result Body Template', 'fair-polls');
 	$update_poll_text[] = __('Result Body2 Template', 'fair-polls');
 	$update_poll_text[] = __('Result Footer Template', 'fair-polls');
 	$update_poll_text[] = __('Result Footer2 Template', 'fair-polls');
+	$update_poll_text[] = __('Result Footer3 Template', 'fair-polls'); // bumbum
 	$update_poll_text[] = __('Poll Archive Link Template', 'fair-polls');
 	$update_poll_text[] = __('Poll Archive Poll Header Template', 'fair-polls');
 	$update_poll_text[] = __('Poll Archive Poll Footer Template', 'fair-polls');
@@ -103,11 +112,17 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 				default_template = "<p style=\"text-align: center;\"><strong>%POLL_QUESTION%</strong></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"fair-polls-ans\">\n<ul class=\"fair-polls-ul\">";
 				break;
 			case "votebody":
-				default_template = "<li><input type=\"%POLL_CHECKBOX_RADIO%\" id=\"poll-answer-%POLL_ANSWER_ID%\" name=\"poll_%POLL_ID%\" value=\"%POLL_ANSWER_ID%\" /> <label for=\"poll-answer-%POLL_ANSWER_ID%\">%POLL_ANSWER%</label></li>";
+				default_template = "<li><input type=\"%POLL_CHECKBOX_RADIO%\" id=\"poll-answer-%POLL_ANSWER_ID%\" name=\"poll_%POLL_ID%\" value=\"%POLL_ANSWER_ID%\" onclick=\"check_vote_msg(this);\" reqarg=\"%POLL_ANSWER_REQARG%\" /> <label for=\"poll-answer-%POLL_ANSWER_ID%\">%POLL_ANSWER%</label></li>";
 				break;
+			case "votebody2": // bumbum
+				default_template = "<li><input type=\"%POLL_CHECKBOX_RADIO%\" id=\"poll-answer-%POLL_ANSWER_ID%\" name=\"poll_%POLL_ID%\" value=\"%POLL_ANSWER_ID%\" checked=\"checked\" onclick=\"check_vote_msg(this, 1);\" reqarg=\"%POLL_ANSWER_REQARG%\" /> <label for=\"poll-answer-%POLL_ANSWER_ID%\">%POLL_ANSWER%</label></li>";
+				break; //
 			case "votefooter":
-				default_template = "</ul>\n<p style=\"text-align: center;\"><input type=\"button\" name=\"vote\" value=\"   <?php _e('Vote', 'fair-polls'); ?>   \" class=\"Buttons\" onclick=\"poll_vote(%POLL_ID%);\" /></p>\n<p style=\"text-align: center;\"><a href=\"#ViewPollResults\" onclick=\"poll_result(%POLL_ID%); return false;\" title=\"<?php _e('View Results Of This Poll', 'fair-polls'); ?>\"><?php _e('View Results', 'fair-polls'); ?></a></p>\n</div>";
+				default_template = "</ul>\n<p style=\"text-align: center;\"><input type=\"button\" name=\"vote\" value=\"   <?php _e('Vote', 'fair-polls'); ?>   \" class=\"button submit\" onclick=\"poll_vote(%POLL_ID%);\" /></p>\n<p style=\"text-align: center;\"><a href=\"#ViewPollResults\" onclick=\"poll_result(%POLL_ID%); return false;\" title=\"<?php _e('View Results Of This Poll', 'fair-polls'); ?>\"><?php _e('View Results', 'fair-polls'); ?></a></p>\n</div>";
 				break;
+			case "votefooter2": // bumbum
+				default_template = "</ul>\n<p style=\"text-align: center;\"><input type=\"button\" name=\"vote\" value=\"   <?php _e('Change Vote', 'fair-polls'); ?>   \" class=\"button submit\" onclick=\"poll_vote(%POLL_ID%, 1);\" /></p>\n<p style=\"text-align: center;\"><a href=\"#ViewPollResults\" onclick=\"poll_result(%POLL_ID%, 1); return false;\" title=\"<?php _e('View Results Of This Poll', 'fair-polls'); ?>\"><?php _e('View Results', 'fair-polls'); ?></a></p>\n</div>";
+				break; //
 			case "resultheader":
 				default_template = "<p style=\"text-align: center;\"><strong>%POLL_QUESTION%</strong></p>\n<div id=\"polls-%POLL_ID%-ans\" class=\"fair-polls-ans\">\n<ul class=\"fair-polls-ul\">";
 				break;
@@ -123,6 +138,9 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 			case "resultfooter2":
 				default_template = "</ul>\n<p style=\"text-align: center;\"><?php _e('Total Voters', 'fair-polls'); ?>: <strong>%POLL_TOTALVOTERS%</strong></p>\n<p style=\"text-align: center;\"><a href=\"#VotePoll\" onclick=\"poll_booth(%POLL_ID%); return false;\" title=\"<?php _e('Vote For This Poll', 'fair-polls'); ?>\"><?php _e('Vote', 'fair-polls'); ?></a></p>\n</div>";
 				break;
+			case "resultfooter3": // bumbum
+				default_template = "</ul>\n<p style=\"text-align: center;\"><?php _e('Total Voters', 'fair-polls'); ?>: <strong>%POLL_TOTALVOTERS%</strong></p>\n<p style=\"text-align: center;\"><a href=\"#VotePoll\" onclick=\"poll_booth(%POLL_ID%, 1); return false;\" title=\"<?php _e('Change Vote For This Poll', 'fair-polls'); ?>\"><?php _e('Change Vote', 'fair-polls'); ?></a></p>\n</div>";
+				break; //
 			case "pollarchivelink":
 				default_template = "<ul>\n<li><a href=\"%POLL_ARCHIVE_URL%\"><?php _e('Polls Archive', 'fair-polls'); ?></a></li>\n</ul>";
 				break;
@@ -343,6 +361,22 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 			</td>
 			<td valign="top"><textarea cols="80" rows="15" id="poll_template_votebody" name="poll_template_votebody"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_votebody'))); ?></textarea></td>
 		</tr>
+		<!-- bumbum -->
+		<tr>
+			<td width="30%" valign="top">
+				<strong><?php _e('Voting Form Body2 (change):', 'fair-polls'); ?></strong><br /><br /><br />
+				<?php _e('Allowed Variables:', 'fair-polls'); // bumbum adds ?><br />
+				<p style="margin: 2px 0">- %POLL_ID%</p>
+				<p style="margin: 2px 0">- %POLL_ANSWER_ID%</p>
+				<p style="margin: 2px 0">- %POLL_ANSWER%</p>
+				<p style="margin: 2px 0">- %POLL_ANSWER_VOTES%</p>
+				<p style="margin: 2px 0">- %POLL_CHECKBOX_RADIO%</p>
+				<p style="margin: 2px 0">- %POLL_ANSWER_REQARG%</p><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'fair-polls'); ?>" onclick="poll_default_templates('votebody2');" class="button" />
+			</td>
+			<td valign="top"><textarea cols="80" rows="15" id="poll_template_votebody2" name="poll_template_votebody2"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_votebody2'))); ?></textarea></td>
+		</tr>
+		<!-- bumbum -->
 		<tr>
 			<td width="30%" valign="top">
 				<strong><?php _e('Voting Form Footer:', 'fair-polls'); ?></strong><br /><br /><br />
@@ -358,6 +392,23 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'fair-polls'); ?>" onclick="poll_default_templates('votefooter');" class="button" />
 			</td>
 			<td valign="top"><textarea cols="80" rows="15" id="poll_template_votefooter" name="poll_template_votefooter"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_votefooter'))); ?></textarea></td>
+		</tr>
+		<!-- bumbum -->
+		<tr>
+			<td width="30%" valign="top">
+				<strong><?php _e('Voting Form Footer2:', 'fair-polls'); ?></strong><br /><br /><br />
+					<?php _e('Allowed Variables:', 'fair-polls'); // bumbum adds ?><br />
+					<p style="margin: 2px 0">- %POLL_ID%</p>
+					<p style="margin: 2px 0">- %POLL_RESULT_URL%</p>
+					<p style="margin: 2px 0">- %POLL_MULTIPLE_ANS_MAX%</p>
+					<p style="margin: 2px 0">- %USER_ROLE%</p>
+					<p style="margin: 2px 0">- %POST_ID%</p>
+					<p style="margin: 2px 0">- %POST_NAME%</p>
+					<p style="margin: 2px 0">- %POST_LINK%</p>
+					<p style="margin: 2px 0">- %POST_LABEL%</p><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'fair-polls'); ?>" onclick="poll_default_templates('votefooter2');" class="button" />
+			</td>
+			<td valign="top"><textarea cols="80" rows="15" id="poll_template_votefooter2" name="poll_template_votefooter2"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_votefooter2'))); ?></textarea></td>
 		</tr>
 	</table>
 
@@ -466,6 +517,33 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 			</td>
 			<td valign="top"><textarea cols="80" rows="15" id="poll_template_resultfooter2" name="poll_template_resultfooter2"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultfooter2'))); ?></textarea></td>
 		</tr>
+		<!-- bumbum -->
+		<tr>
+			<td width="30%" valign="top">
+				<strong><?php _e('Result Footer:', 'fair-polls'); ?></strong><br /><?php _e('Displayed When The User HAS Voted, to Change her/his Vote', 'fair-polls'); ?><br /><br />
+				<?php _e('Allowed Variables:', 'fair-polls'); // bumbum adds ?><br />
+				<p style="margin: 2px 0">- %POLL_ID%</p>
+				<p style="margin: 2px 0">- %POLL_START_DATE%</p>
+				<p style="margin: 2px 0">- %POLL_END_DATE%</p>
+				<p style="margin: 2px 0">- %POLL_TOTALVOTES%</p>
+				<p style="margin: 2px 0">- %POLL_TOTALVOTERS%</p>
+				<p style="margin: 2px 0">- %POLL_MOST_ANSWER%</p>
+				<p style="margin: 2px 0">- %POLL_MOST_VOTES%</p>
+				<p style="margin: 2px 0">- %POLL_MOST_PERCENTAGE%</p>
+				<p style="margin: 2px 0">- %POLL_LEAST_ANSWER%</p>
+				<p style="margin: 2px 0">- %POLL_LEAST_VOTES%</p>
+				<p style="margin: 2px 0">- %POLL_LEAST_PERCENTAGE%</p>
+				<p style="margin: 2px 0">- %POLL_MULTIPLE_ANS_MAX%</p>
+				<p style="margin: 2px 0">- %USER_ROLE%</p>
+				<p style="margin: 2px 0">- %POST_ID%</p>
+				<p style="margin: 2px 0">- %POST_NAME%</p>
+				<p style="margin: 2px 0">- %POST_LINK%</p>
+				<p style="margin: 2px 0">- %POST_LABEL%</p><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'fair-polls'); ?>" onclick="poll_default_templates('resultfooter3');" class="button" />
+			</td>
+			<td valign="top"><textarea cols="80" rows="15" id="poll_template_resultfooter3" name="poll_template_resultfooter3"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_resultfooter3'))); ?></textarea></td>
+		</tr>
+		<!-- bumbum -->
 	</table>
 
 	<!-- Poll Archive Templates -->

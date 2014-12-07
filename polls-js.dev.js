@@ -6,7 +6,7 @@ pollsL10n.show_loading = parseInt(pollsL10n.show_loading);
 pollsL10n.show_fading = parseInt(pollsL10n.show_fading);
 
 // When User Vote For Poll
-function poll_vote(current_poll_id) {
+function poll_vote(current_poll_id, changin) {
 	jQuery(document).ready(function($) {
 		if(!is_being_voted) {
 			set_is_being_voted(true);
@@ -101,8 +101,9 @@ function poll_result(current_poll_id) {
 }
 
 // Poll's Voting Booth  (User Click "Vote" Link)
-function poll_booth(current_poll_id) {
+function poll_booth(current_poll_id, chnge) { // bumbum chnge
 	jQuery(document).ready(function($) {
+		//if(chnge) set_is_being_voted(true);
 		if(!is_being_voted) {
 			set_is_being_voted(true);
 			poll_id = current_poll_id;
