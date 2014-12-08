@@ -479,6 +479,9 @@ function poll_template_vote_markup($template, $poll_db_object, $variables) {
 function display_pollvote($poll_id, $display_loading = true, $changin = false) { // bumbum changin
 	do_action('wp_polls_display_pollvote');
 	global $wpdb;
+
+	if(intval(get_option('poll_changevote')) < 1) $changin = false; // bumbum
+
 	// Temp Poll Result
 	$temp_pollvote = '';
 	// Get Poll Question Data  // bumbum: added pollq_postid
@@ -625,7 +628,7 @@ function display_pollvote($poll_id, $display_loading = true, $changin = false) {
 
 
 ### Function: Display Results Form
-function display_pollresult($poll_id, $user_voted = '', $display_loading = true) {
+function display_pollresult($poll_id, $user_voted = '', $display_loading = true, $changin = false) {
 	do_action('wp_polls_display_pollresult');
 	global $wpdb;
 	$poll_id = intval($poll_id);
@@ -788,10 +791,10 @@ function display_pollresult($poll_id, $user_voted = '', $display_loading = true)
 		}
 		// Results Footer Variables
 		//if(!empty($user_voted) || $poll_question_active == 0 || !check_allowtovote()) {
-		if($poll_question_active == 0 || !check_allowtovote()) {
+		if($poll_question_active == 0 || !check_allowtovote() || intval(get_option('poll_changevote')) < 1) {
 			$template_footer = stripslashes(get_option('poll_template_resultfooter'));
 		} else {
-			if(!empty($user_voted) && intval(get_option('poll_changevote')) > 0) { // bumbum: added change-vote resultfooter3
+			if(!empty($user_voted) || $changin) { // bumbum: added change-vote resultfooter3
 				$template_footer = stripslashes(get_option('poll_template_resultfooter3'));
 			} else {
 				$template_footer = stripslashes(get_option('poll_template_resultfooter2'));
@@ -1431,6 +1434,14 @@ function vote_poll() {
 			exit();
 		}
 
+		// bumbum
+		if(check_allowtovote() && check_voted($poll_id) > 0 && intval(get_option('poll_changevote')) > 0){
+			$changin = true;
+		} else {
+			$changin = false;
+		}
+		//
+
 		// Which View
 		switch($_REQUEST['view'])
 		{
@@ -1484,7 +1495,7 @@ function vote_poll() {
 
 						} else { // bumbum: User HAS VOTED before, is a CHANGING VOTE
 
-							if(intval(get_option('poll_changevote')) > 0) {
+							if($changin) {
 
 								// bumbum: erase old vote and insert new one...
 								if (!empty($user_identity)) {
@@ -1551,16 +1562,15 @@ function vote_poll() {
 									foreach ($poll_aid_array as $polla_aid) {
 										$wpdb->query("INSERT INTO $wpdb->pollsip VALUES (0, $poll_id, $polla_aid, '$pollip_ip', '$pollip_host', '$pollip_timestamp', '$pollip_user', $pollip_userid)");
 									}
-									echo display_pollresult($poll_id, $poll_aid_array, false);
+									echo display_pollresult($poll_id, $poll_aid_array, false, $changin);
 								} else {
 									printf(__('Unable To Update Poll Total Votes And Poll Total Voters. Poll ID #%s', 'fair-polls'), $poll_id);
 								} // End if($vote_a)
 								// bumbum
 
 							} else {
-							  printf(__('You Had Already Voted For This Poll (ID #%s), Changing Vote.', 'fair-polls'), $poll_id);
+							  printf(__('You Had Already Voted For This Poll (ID #%s).', 'fair-polls'), $poll_id);
 							}
-
 
 						} // End if($check_voted)
 					} else {
@@ -1572,11 +1582,11 @@ function vote_poll() {
 				break;
 			// Poll Result
 			case 'result':
-				echo display_pollresult($poll_id, 0, false);
+				echo display_pollresult($poll_id, 0, false, $changin);
 				break;
 			// Poll Booth Aka Poll Voting Form
 			case 'booth':
-				echo display_pollvote($poll_id, false);
+				echo display_pollvote($poll_id, false, $changin);
 				break;
 		} // End switch($_REQUEST['view'])
 	} // End if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'polls')
