@@ -284,7 +284,7 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 	<h3><?php _e('Allow To Change Vote', 'fair-polls'); ?></h3>
 	<table class="form-table">
 		<tr>
-			<th scope="row" valign="top"><?php _e('Allow Users To Change The Vote?', 'fair-polls'); ?></th>
+			<th scope="row" valign="top"><?php _e('Allow Voters To Change Their Vote?', 'fair-polls'); ?></th>
 			<td>
 				<select name="poll_changevote" size="1">
 					<option value="0"<?php selected('0', get_option('poll_changevote')); ?>><?php _e('No', 'fair-polls'); ?></option>

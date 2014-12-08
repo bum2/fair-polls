@@ -2,8 +2,8 @@
 /*
 Plugin Name: Fair-Polls
 Plugin URI: https://github.com/bum2/fair-polls
-Description: Adapted from GaMerZ's WP-Polls v2.68 (forking https://github.com/lesterchan/fair-polls) to meet the Fair.Coop requirements: Allow to set 'full-member' as the minimum role for voting, and show results to others. Allows to delete only one user vote, also allows to link a related post thread (topic on a bbp forum, etc) and allows to set any answer (vote) as 'requiring arguments' (a reply or comment on the related debate post) from the same user, in a timespan. Fair-Polls (inheriting from WP-Polls) is customizable via templates and css, and supports multiple selection of answers.
-Version: 0.2
+Description: Adapted from GaMerZ's WP-Polls v2.68 (forking https://github.com/lesterchan/fair-polls) to meet the Fair.Coop requirements: Allow to set 'full-member' as the minimum role for voting, and show results to others. Allows users to change their vote, allows admins to delete only one user vote, also allows to link a related post thread (topic on a bbp forum, etc) and allows to set any answer (vote) as 'requiring arguments' (a reply or comment on the related debate post) from the same user, in a timespan. Fair-Polls (inheriting from WP-Polls) is customizable via templates and css, and supports multiple selection of answers.
+Version: 0.3
 Author: Bumbum
 Author URI: https://fair.coop
 Text Domain: fair-polls
@@ -30,7 +30,7 @@ Text Domain: fair-polls
 
 
 ### Version
-define( 'FAIR_POLLS_VERSION', 0.2 );
+define( 'FAIR_POLLS_VERSION', 0.3 );
 
 
 ### Create Text Domain For Translations
@@ -141,10 +141,10 @@ function get_poll($temp_poll_id = 0, $display = true) {
 		if(intval($check_voted) > 0 || (is_array($check_voted) && sizeof($check_voted) > 0) || ($poll_active == 0 && $poll_close == 1)) {
 			if(check_allowtovote() && intval(get_option('poll_changevote')) > 0){ // bumbum changevote
 				if($display) {
-					echo display_pollvote($poll_id, true, true);
+					echo display_pollresult($poll_id, $check_voted, true, true);
 					return;
 				} else {
-					return display_pollvote($poll_id, true, true);
+					return display_pollresult($poll_id, $check_voted, true, true);
 				}
 			} else {
 				//return; 		// bumbum: if not allowed to vote, show results (you can uncomment to hide the polls)
@@ -478,7 +478,7 @@ function poll_template_vote_markup($template, $poll_db_object, $variables) {
 ### Function: Display Voting Form
 function display_pollvote($poll_id, $display_loading = true, $changin = false) { // bumbum changin
 	do_action('wp_polls_display_pollvote');
-	global $wpdb;
+	global $wpdb, $user_ID;
 
 	if(intval(get_option('poll_changevote')) < 1) $changin = false; // bumbum
 
@@ -540,14 +540,36 @@ function display_pollvote($poll_id, $display_loading = true, $changin = false) {
 		}
 		// Print Out Voting Form Header Template
 		$temp_pollvote .= "\t\t$template_question\n";
+
+		// bumbum
+		$poll_user_name = get_current_user_name();
+		$poll_user_id = intval($user_ID);
+		$user_voted = array();
+		if($changin){
+			$old_votes = $wpdb->get_results("SELECT pollip_aid FROM $wpdb->pollsip WHERE pollip_qid = $poll_question_id AND pollip_userid = $poll_user_id");
+			if($old_votes){
+				$o = 0;
+				foreach($old_votes as $old_vote) {
+					$user_voted[$o] = intval($old_vote->pollip_aid);
+					$o++;
+				}
+			}
+		}
+
 		foreach($poll_answers as $poll_answer) {
 			// Poll Answer Variables
 			$poll_answer_id = intval($poll_answer->polla_aid);
 			$poll_answer_text = stripslashes($poll_answer->polla_answers);
 			$poll_answer_votes = intval($poll_answer->polla_votes);
 			$poll_answer_req_arg = intval($poll_answer->polla_req_arg); // bumbum
+
 			if($changin) {
-				$template_answer = stripslashes(get_option('poll_template_votebody2'));
+				if(in_array($poll_answer_id, $user_voted)) {
+					$template_answer = stripslashes(get_option('poll_template_votebody2'));
+				} else {
+					$template_answer = stripslashes(get_option('poll_template_votebody'));
+					//$template_answer .= print($user_voted);
+				}
 			} else {
 				$template_answer = stripslashes(get_option('poll_template_votebody'));
 			}
@@ -1069,7 +1091,7 @@ function polls_archive() {
 	$questions = $wpdb->get_results("SELECT * FROM $wpdb->pollsq WHERE $polls_type_sql ORDER BY pollq_id DESC LIMIT $offset, $polls_perpage");
 	if($questions) {
 		foreach($questions as $question) {
-			$polls_questions[] = array('id' => intval($question->pollq_id), 'question' => stripslashes($question->pollq_question), 'timestamp' => $question->pollq_timestamp, 'totalvotes' => intval($question->pollq_totalvotes), 'start' => $question->pollq_timestamp, 'end' => trim($question->pollq_expiry), 'multiple' => intval($question->pollq_multiple), 'totalvoters' => intval($question->pollq_totalvoters));
+			$polls_questions[] = array('id' => intval($question->pollq_id), 'question' => stripslashes($question->pollq_question), 'timestamp' => $question->pollq_timestamp, 'totalvotes' => intval($question->pollq_totalvotes), 'start' => $question->pollq_timestamp, 'end' => trim($question->pollq_expiry), 'multiple' => intval($question->pollq_multiple), 'totalvoters' => intval($question->pollq_totalvoters), 'postid' => intval($question->pollq_postid)); // bumbum postid
 			$poll_questions_ids .= intval($question->pollq_id).', ';
 		}
 		$poll_questions_ids = substr($poll_questions_ids, 0, -2);
@@ -1126,6 +1148,13 @@ function polls_archive() {
 		} else {
 			$template_question = str_replace("%POLL_MULTIPLE_ANS_MAX%", '1', $template_question);
 		}
+		$poll_postid_text = get_the_title($polls_question['postid']);
+		$poll_postlink = get_permalink($polls_question['postid']);
+		$template_question = str_replace("%POST_NAME%", $poll_postid_text, $template_question); // bumbum
+		$template_question = str_replace("%POST_ID%", $polls_question['postid'], $template_question); // bumbum
+		$template_question = str_replace("%POST_LINK%", $poll_postlink, $template_question); // bumbum
+		$template_question = str_replace("%POST_LABEL%", __('Related Debate: ','fair-polls'), $template_question); // bumbum
+
 		// Print Out Result Header Template
 		$pollsarchive_output_archive .= $template_archive_header;
 		$pollsarchive_output_archive .= $template_question;
@@ -1216,6 +1245,11 @@ function polls_archive() {
 		} else {
 			$template_footer  = str_replace("%POLL_MULTIPLE_ANS_MAX%", '1', $template_footer);
 		}
+		$template_footer = str_replace("%POST_NAME%", $poll_postid_text, $template_footer); // bumbum
+		$template_footer = str_replace("%POST_ID%", $polls_question['postid'], $template_footer); // bumbum
+		$template_footer = str_replace("%POST_LINK%", $poll_postlink, $template_question); // bumbum
+		$template_footer = str_replace("%POST_LABEL%", __('Related Debate: ','fair-polls'), $template_footer); // bumbum
+
 		// Archive Poll Footer
 		$template_archive_footer = stripslashes(get_option('poll_template_pollarchivefooter'));
 		$template_archive_footer = str_replace("%POLL_START_DATE%", $poll_start_date, $template_archive_footer);
@@ -1520,12 +1554,12 @@ function vote_poll() {
 								}
 
 								// Erase Old Votes
-								$get_old_votes = $wpdb->query("SELECT pollip_aid FROM $wpdb->pollsip WHERE pollip_qid = $poll_id AND pollip_user = $pollip_user");
+								$get_old_votes = $wpdb->get_results("SELECT pollip_aid FROM $wpdb->pollsip WHERE pollip_qid = $poll_id AND pollip_user = '$pollip_user'");
 								$o = 0;
 								$old_votes = array();
 								foreach($get_old_votes as $old_vote) {
-									$old_vote_aid = intval($old_vote);
-									$erase_vote_sip = $wpdb->query("DELETE FROM $wpdb->pollsip WHERE pollip_qid = $poll_id AND pollip_user = $pollip_user AND pollip_aid = $old_vote_aid");
+									$old_vote_aid = intval($old_vote->pollip_aid);
+									$erase_vote_sip = $wpdb->query("DELETE FROM $wpdb->pollsip WHERE pollip_qid = $poll_id AND pollip_user = '$pollip_user' AND pollip_aid = $old_vote_aid");
 									if(!$erase_vote_sip) {
 										printf(__('Unable To Erase Poll Old User Votes (table pollsip). Poll ID #%s, Answer ID #%s', 'fair-polls'), $poll_id, $old_vote_aid);
 										return false;
@@ -1557,7 +1591,7 @@ function vote_poll() {
 									}
 									$i++;
 								}
-								$vote_q = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_totalvotes = (pollq_totalvotes+" . sizeof($poll_aid_array) . "), pollq_totalvoters = (pollq_totalvoters+1) WHERE pollq_id = $poll_id AND pollq_active = 1");
+								$vote_q = $wpdb->query("UPDATE $wpdb->pollsq SET pollq_totalvotes = (pollq_totalvotes+" . sizeof($poll_aid_array) . ") WHERE pollq_id = $poll_id AND pollq_active = 1");
 								if ($vote_q) {
 									foreach ($poll_aid_array as $polla_aid) {
 										$wpdb->query("INSERT INTO $wpdb->pollsip VALUES (0, $poll_id, $polla_aid, '$pollip_ip', '$pollip_host', '$pollip_timestamp', '$pollip_user', $pollip_userid)");
@@ -2000,7 +2034,7 @@ function polls_activate() {
 	add_option('poll_template_resultfooter3', '</ul>'.
 	'<p style="text-align: center;">'.__('Total Voters', 'fair-polls').': <strong>%POLL_TOTALVOTERS%</strong></p>'.
 	'<p style="text-align: center;"><a href="#VotePoll" onclick="poll_booth(%POLL_ID%, 1); return false;" title="'.__('Change My Vote For This Poll', 'fair-polls').'">'.__('Change Vote', 'fair-polls').'</a></p>'.
-	'</div>');
+	'</div>'); // bumbum
 
 	add_option('poll_template_disable', __('Sorry, there are no polls available at the moment.', 'fair-polls'));
 	add_option('poll_template_error', __('An error has occurred when processing your poll.', 'fair-polls'));
@@ -2009,8 +2043,8 @@ function polls_activate() {
 	add_option('poll_archive_perpage', 5);
 	add_option('poll_ans_sortby', 'polla_aid');
 	add_option('poll_ans_sortorder', 'asc');
-	add_option('poll_ans_result_sortby', 'polla_votes');
-	add_option('poll_ans_result_sortorder', 'desc');
+	add_option('poll_ans_result_sortby', 'polla_aid');
+	add_option('poll_ans_result_sortorder', 'asc');
 	// Database Upgrade For WP-Polls 2.1
 	add_option('poll_logging_method', '3');
 	add_option('poll_allowtovote', '2');
@@ -2030,7 +2064,7 @@ function polls_activate() {
 	'</ul>');
 	add_option('poll_archive_displaypoll', 2);
 	add_option('poll_template_pollarchiveheader', '');
-	add_option('poll_template_pollarchivefooter', '<p>'.__('Start Date:', 'fair-polls').' %POLL_START_DATE%<br />'.__('End Date:', 'fair-polls').' %POLL_END_DATE%</p>');
+	add_option('poll_template_pollarchivefooter', '<p>'.__('Start Date:', 'fair-polls').' %POLL_START_DATE%<br />'.__('End Date:', 'fair-polls').' %POLL_END_DATE%</p><br />');
 	maybe_add_column($wpdb->pollsq, 'pollq_multiple', "ALTER TABLE $wpdb->pollsq ADD pollq_multiple TINYINT( 3 ) NOT NULL DEFAULT '0';");
 	$pollq_totalvoters = maybe_add_column($wpdb->pollsq, 'pollq_totalvoters', "ALTER TABLE $wpdb->pollsq ADD pollq_totalvoters INT( 10 ) NOT NULL DEFAULT '0';");
 	if($pollq_totalvoters) {
