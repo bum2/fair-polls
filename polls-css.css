@@ -21,7 +21,26 @@
 }
 .fair-polls, .fair-polls-form {
 	/* background-color: #ffffff; */
+	border: 0px dashed rgb(150, 150, 150);
+	padding: 1.5em;
+	background-color: rgb(247, 244, 227);
+	border-radius: 4px 4px 4px 4px;
+	box-shadow: 0px 0.15em 0.35em 0px rgba(0, 0, 0, 0.133);
 }
+.fair-polls-archive {
+	border: 0px;
+	padding: 0em;
+	background-color: rgb(255, 255, 255);
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: none;
+}
+.fair-polls h5 {
+	margin: 0px;
+}
+.fair-polls h5 small {
+	color: rgb(39, 39, 39);
+}
+
 .fair-polls ul li, .fair-polls-ul li, .fair-polls-ans ul li {
 	text-align: left;
 	background-image: none;

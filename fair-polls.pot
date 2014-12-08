@@ -1,9 +1,9 @@
-# Copyright (C) 2014 WP-Polls
-# This file is distributed under the same license as the WP-Polls package.
+# Copyright (C) 2014 Fair-Polls
+# This file is distributed under the same license as the Fair-Polls package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP-Polls 2.67\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-polls\n"
+"Project-Id-Version: Fair-Polls 0.3\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/fair-polls\n"
 "POT-Creation-Date: 2014-12-03 14:55:28+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: polls-add.php:34 polls-add.php:110 polls-add.php:177 wp-polls.php:56
+#: polls-add.php:34 polls-add.php:110 polls-add.php:177 fair-polls.php:56
 msgid "Add Poll"
 msgstr ""
 
@@ -28,7 +28,7 @@ msgstr ""
 msgid "Poll '%s' (ID: %s) Added Successfully."
 msgstr ""
 
-#: polls-add.php:95 polls-manager.php:325 wp-polls.php:55
+#: polls-add.php:95 polls-manager.php:325 fair-polls.php:55
 msgid "Manage Polls"
 msgstr ""
 
@@ -52,7 +52,7 @@ msgstr ""
 msgid "Answer %s"
 msgstr ""
 
-#: polls-add.php:133 wp-polls.php:249
+#: polls-add.php:133 fair-polls.php:249
 msgid "Remove"
 msgstr ""
 
@@ -65,13 +65,13 @@ msgid "Allows Users To Select More Than One Answer?"
 msgstr ""
 
 #: polls-add.php:147 polls-manager.php:238 polls-options.php:199
-#: polls-options.php:208 polls-options.php:325 wp-polls.php:1576
+#: polls-options.php:208 polls-options.php:325 fair-polls.php:1576
 msgid "No"
 msgstr ""
 
 #: polls-add.php:148 polls-logs.php:383 polls-manager.php:239
 #: polls-manager.php:461 polls-options.php:200 polls-options.php:209
-#: polls-options.php:326 polls-uninstall.php:127 wp-polls.php:1577
+#: polls-options.php:326 polls-uninstall.php:127 fair-polls.php:1577
 msgid "Yes"
 msgstr ""
 
@@ -100,7 +100,7 @@ msgid "Cancel"
 msgstr ""
 
 #: polls-logs.php:34 polls-logs.php:35 polls-logs.php:38 polls-logs.php:70
-#: polls-logs.php:74 polls-logs.php:107 polls-logs.php:110 wp-polls.php:1327
+#: polls-logs.php:74 polls-logs.php:107 polls-logs.php:110 fair-polls.php:1327
 msgid "Guest"
 msgstr ""
 
@@ -225,7 +225,7 @@ msgid ""
 "This default filter is limited to display only <strong>%s</strong> records."
 msgstr ""
 
-#: polls-logs.php:289 polls-logs.php:334 wp-polls.php:248
+#: polls-logs.php:289 polls-logs.php:334 fair-polls.php:248
 msgid "Answer"
 msgstr ""
 
@@ -243,8 +243,8 @@ msgstr ""
 
 #: polls-logs.php:299 polls-logs.php:329 polls-manager.php:266
 #: polls-manager.php:278 polls-manager.php:355 polls-manager.php:363
-#: wp-polls.php:449 wp-polls.php:454 wp-polls.php:567 wp-polls.php:572
-#: wp-polls.php:982 wp-polls.php:986
+#: fair-polls.php:449 fair-polls.php:454 fair-polls.php:567 fair-polls.php:572
+#: fair-polls.php:982 fair-polls.php:986
 msgid "%s @ %s"
 msgstr ""
 
@@ -280,7 +280,7 @@ msgstr ""
 msgid "Are You Sure You Want To Delete Logs For This Poll Only?"
 msgstr ""
 
-#: polls-logs.php:384 wp-polls.php:243 wp-polls.php:1406
+#: polls-logs.php:384 fair-polls.php:243 fair-polls.php:1406
 msgid "Delete Logs For This Poll Only"
 msgstr ""
 
@@ -365,7 +365,7 @@ msgstr ""
 msgid "This Poll Will Not Expire"
 msgstr ""
 
-#: polls-manager.php:305 wp-polls.php:247 wp-polls.php:1449
+#: polls-manager.php:305 fair-polls.php:247 fair-polls.php:1449
 msgid "Close Poll"
 msgstr ""
 
@@ -373,7 +373,7 @@ msgstr ""
 msgid "You are about to CLOSE this poll '%s'."
 msgstr ""
 
-#: polls-manager.php:306 wp-polls.php:246 wp-polls.php:1437
+#: polls-manager.php:306 fair-polls.php:246 fair-polls.php:1437
 msgid "Open Poll"
 msgstr ""
 
@@ -381,7 +381,7 @@ msgstr ""
 msgid "You are about to OPEN this poll '%s'."
 msgstr ""
 
-#: polls-manager.php:326 wp-polls.php:53 wp-polls.php:1530 wp-polls.php:1565
+#: polls-manager.php:326 fair-polls.php:53 fair-polls.php:1530 fair-polls.php:1565
 msgid "Polls"
 msgstr ""
 
@@ -390,7 +390,7 @@ msgid "ID"
 msgstr ""
 
 #: polls-manager.php:333 polls-templates.php:121 polls-templates.php:124
-#: wp-polls.php:1707 wp-polls.php:1710
+#: fair-polls.php:1707 fair-polls.php:1710
 msgid "Total Voters"
 msgstr ""
 
@@ -402,7 +402,7 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: polls-manager.php:361 wp-polls.php:452 wp-polls.php:570 wp-polls.php:984
+#: polls-manager.php:361 fair-polls.php:452 fair-polls.php:570 fair-polls.php:984
 msgid "No Expiry"
 msgstr ""
 
@@ -462,7 +462,7 @@ msgstr ""
 msgid "Are You Sure You Want To Delete All Polls Logs?"
 msgstr ""
 
-#: polls-manager.php:462 wp-polls.php:241 wp-polls.php:1394
+#: polls-manager.php:462 fair-polls.php:241 fair-polls.php:1394
 msgid "Delete All Logs"
 msgstr ""
 
@@ -470,7 +470,7 @@ msgstr ""
 msgid "You are about to delete all poll logs. This action is not reversible."
 msgstr ""
 
-#: polls-manager.php:465 wp-polls.php:240
+#: polls-manager.php:465 fair-polls.php:240
 msgid "No poll logs available."
 msgstr ""
 
@@ -542,7 +542,7 @@ msgstr ""
 msgid "No Poll Option Updated"
 msgstr ""
 
-#: polls-options.php:128 wp-polls.php:57
+#: polls-options.php:128 fair-polls.php:57
 msgid "Poll Options"
 msgstr ""
 
@@ -724,15 +724,15 @@ msgstr ""
 msgid "Current Active Poll"
 msgstr ""
 
-#: polls-options.php:343 wp-polls.php:1584
+#: polls-options.php:343 fair-polls.php:1584
 msgid "Do NOT Display Poll (Disable)"
 msgstr ""
 
-#: polls-options.php:344 wp-polls.php:1585
+#: polls-options.php:344 fair-polls.php:1585
 msgid "Display Random Poll"
 msgstr ""
 
-#: polls-options.php:345 wp-polls.php:1586
+#: polls-options.php:345 fair-polls.php:1586
 msgid "Display Latest Poll"
 msgstr ""
 
@@ -816,58 +816,58 @@ msgstr ""
 msgid "Poll Error Template"
 msgstr ""
 
-#: polls-templates.php:109 polls-templates.php:124 wp-polls.php:1698
-#: wp-polls.php:1711
+#: polls-templates.php:109 polls-templates.php:124 fair-polls.php:1698
+#: fair-polls.php:1711
 msgid "Vote"
 msgstr ""
 
-#: polls-templates.php:109 wp-polls.php:1699
+#: polls-templates.php:109 fair-polls.php:1699
 msgid "View Results Of This Poll"
 msgstr ""
 
-#: polls-templates.php:109 wp-polls.php:1699
+#: polls-templates.php:109 fair-polls.php:1699
 msgid "View Results"
 msgstr ""
 
-#: polls-templates.php:115 polls-templates.php:118 wp-polls.php:1704
-#: wp-polls.php:1705
+#: polls-templates.php:115 polls-templates.php:118 fair-polls.php:1704
+#: fair-polls.php:1705
 msgid ","
 msgstr ""
 
-#: polls-templates.php:115 polls-templates.php:118 wp-polls.php:1704
-#: wp-polls.php:1705
+#: polls-templates.php:115 polls-templates.php:118 fair-polls.php:1704
+#: fair-polls.php:1705
 msgid "Votes"
 msgstr ""
 
-#: polls-templates.php:118 wp-polls.php:1705
+#: polls-templates.php:118 fair-polls.php:1705
 msgid "You Have Voted For This Choice"
 msgstr ""
 
-#: polls-templates.php:124 wp-polls.php:1711
+#: polls-templates.php:124 fair-polls.php:1711
 msgid "Vote For This Poll"
 msgstr ""
 
-#: polls-templates.php:127 wp-polls.php:1737
+#: polls-templates.php:127 fair-polls.php:1737
 msgid "Polls Archive"
 msgstr ""
 
-#: polls-templates.php:133 wp-polls.php:1741
+#: polls-templates.php:133 fair-polls.php:1741
 msgid "Start Date:"
 msgstr ""
 
-#: polls-templates.php:133 wp-polls.php:1741
+#: polls-templates.php:133 fair-polls.php:1741
 msgid "End Date:"
 msgstr ""
 
-#: polls-templates.php:142 wp-polls.php:1713
+#: polls-templates.php:142 fair-polls.php:1713
 msgid "Sorry, there are no polls available at the moment."
 msgstr ""
 
-#: polls-templates.php:145 wp-polls.php:1714
+#: polls-templates.php:145 fair-polls.php:1714
 msgid "An error has occurred when processing your poll."
 msgstr ""
 
-#: polls-templates.php:156 wp-polls.php:58
+#: polls-templates.php:156 fair-polls.php:58
 msgid "Poll Templates"
 msgstr ""
 
@@ -1103,7 +1103,7 @@ msgid "Displayed When An Error Has Occured While Processing The Poll"
 msgstr ""
 
 #: polls-uninstall.php:39 polls-uninstall.php:128
-msgid "UNINSTALL WP-Polls"
+msgid "UNINSTALL Fair-Polls"
 msgstr ""
 
 #: polls-uninstall.php:47
@@ -1114,19 +1114,19 @@ msgstr ""
 msgid "Setting Key '%s' has been deleted."
 msgstr ""
 
-#: polls-uninstall.php:75 polls-uninstall.php:86 wp-polls.php:59
-msgid "Uninstall WP-Polls"
+#: polls-uninstall.php:75 polls-uninstall.php:86 fair-polls.php:59
+msgid "Uninstall Fair-Polls"
 msgstr ""
 
 #: polls-uninstall.php:76
 msgid ""
-"<a href=\"%s\">Click Here</a> To Finish The Uninstallation And WP-Polls Will "
+"<a href=\"%s\">Click Here</a> To Finish The Uninstallation And Fair-Polls Will "
 "Be Deactivated Automatically."
 msgstr ""
 
 #: polls-uninstall.php:88
 msgid ""
-"Deactivating WP-Polls plugin does not remove any data that may have been "
+"Deactivating Fair-Polls plugin does not remove any data that may have been "
 "created, such as the poll data and the poll's voting logs. To completely "
 "remove this plugin, you can uninstall it here."
 msgstr ""
@@ -1154,224 +1154,224 @@ msgid "WordPress Tables"
 msgstr ""
 
 #: polls-uninstall.php:126
-msgid "Do you really want to uninstall WP-Polls?"
+msgid "Do you really want to uninstall Fair-Polls?"
 msgstr ""
 
 #: polls-uninstall.php:128
 msgid ""
-"You Are About To Uninstall WP-Polls From WordPress.\\nThis Action Is Not "
+"You Are About To Uninstall Fair-Polls From WordPress.\\nThis Action Is Not "
 "Reversible.\\n\\n Choose [Cancel] To Stop, [OK] To Uninstall."
 msgstr ""
 
-#: wp-polls.php:219
+#: fair-polls.php:219
 msgid "Your last request is still being processed. Please wait a while ..."
 msgstr ""
 
-#: wp-polls.php:220
+#: fair-polls.php:220
 msgid "Please choose a valid poll answer."
 msgstr ""
 
-#: wp-polls.php:221
+#: fair-polls.php:221
 msgid "Maximum number of choices allowed: "
 msgstr ""
 
-#: wp-polls.php:239 wp-polls.php:1461
+#: fair-polls.php:239 fair-polls.php:1461
 msgid "Delete Poll"
 msgstr ""
 
-#: wp-polls.php:242
+#: fair-polls.php:242
 msgid "Please check the \\'Yes\\' checkbox if you want to delete all logs."
 msgstr ""
 
-#: wp-polls.php:244
+#: fair-polls.php:244
 msgid ""
 "Please check the \\'Yes\\' checkbox if you want to delete all logs for this "
 "poll ONLY."
 msgstr ""
 
-#: wp-polls.php:245 wp-polls.php:1420
+#: fair-polls.php:245 fair-polls.php:1420
 msgid "Delete Poll Answer"
 msgstr ""
 
-#: wp-polls.php:263
+#: fair-polls.php:263
 msgid "Poll"
 msgstr ""
 
-#: wp-polls.php:264 wp-polls.php:301
+#: fair-polls.php:264 fair-polls.php:301
 msgid "Enter Poll ID"
 msgstr ""
 
-#: wp-polls.php:266 wp-polls.php:302
+#: fair-polls.php:266 fair-polls.php:302
 msgid "Error: Poll ID must be numeric"
 msgstr ""
 
-#: wp-polls.php:266 wp-polls.php:303
+#: fair-polls.php:266 fair-polls.php:303
 msgid "Please enter Poll ID again"
 msgstr ""
 
-#: wp-polls.php:304
+#: fair-polls.php:304
 msgid "Insert Poll"
 msgstr ""
 
-#: wp-polls.php:530 wp-polls.php:706
+#: fair-polls.php:530 fair-polls.php:706
 msgid "Loading"
 msgstr ""
 
-#: wp-polls.php:759
+#: fair-polls.php:759
 msgid ""
 "Note: There is a poll embedded within this post, please visit the site to "
 "participate in this post's poll."
 msgstr ""
 
-#: wp-polls.php:1125
+#: fair-polls.php:1125
 msgid "Page %s of %s"
 msgstr ""
 
-#: wp-polls.php:1127
+#: fair-polls.php:1127
 msgid "&laquo; First"
 msgstr ""
 
-#: wp-polls.php:1131
+#: fair-polls.php:1131
 msgid "&laquo;"
 msgstr ""
 
-#: wp-polls.php:1141
+#: fair-polls.php:1141
 msgid "&raquo;"
 msgstr ""
 
-#: wp-polls.php:1145
+#: fair-polls.php:1145
 msgid "Last &raquo;"
 msgstr ""
 
-#: wp-polls.php:1300
+#: fair-polls.php:1300
 msgid "Invalid Poll ID"
 msgstr ""
 
-#: wp-polls.php:1307
+#: fair-polls.php:1307
 msgid "Failed To Verify Referrer"
 msgstr ""
 
-#: wp-polls.php:1357
+#: fair-polls.php:1357
 msgid "Unable To Update Poll Total Votes And Poll Total Voters. Poll ID #%s"
 msgstr ""
 
-#: wp-polls.php:1360
+#: fair-polls.php:1360
 msgid "You Had Already Voted For This Poll. Poll ID #%s"
 msgstr ""
 
-#: wp-polls.php:1363
+#: fair-polls.php:1363
 msgid "Invalid Poll ID. Poll ID #%s"
 msgstr ""
 
-#: wp-polls.php:1399
+#: fair-polls.php:1399
 msgid "All Polls Logs Have Been Deleted."
 msgstr ""
 
-#: wp-polls.php:1401
+#: fair-polls.php:1401
 msgid "An Error Has Occurred While Deleting All Polls Logs."
 msgstr ""
 
-#: wp-polls.php:1413
+#: fair-polls.php:1413
 msgid "All Logs For '%s' Has Been Deleted."
 msgstr ""
 
-#: wp-polls.php:1415
+#: fair-polls.php:1415
 msgid "An Error Has Occurred While Deleting All Logs For '%s'"
 msgstr ""
 
-#: wp-polls.php:1431
+#: fair-polls.php:1431
 msgid "Poll Answer '%s' Deleted Successfully."
 msgstr ""
 
-#: wp-polls.php:1433
+#: fair-polls.php:1433
 msgid "Error In Deleting Poll Answer '%s'."
 msgstr ""
 
-#: wp-polls.php:1443
+#: fair-polls.php:1443
 msgid "Poll '%s' Is Now Opened"
 msgstr ""
 
-#: wp-polls.php:1445
+#: fair-polls.php:1445
 msgid "Error Opening Poll '%s'"
 msgstr ""
 
-#: wp-polls.php:1455
+#: fair-polls.php:1455
 msgid "Poll '%s' Is Now Closed"
 msgstr ""
 
-#: wp-polls.php:1457
+#: fair-polls.php:1457
 msgid "Error Closing Poll '%s'"
 msgstr ""
 
-#: wp-polls.php:1470
+#: fair-polls.php:1470
 msgid "Error In Deleting Poll '%s' Question"
 msgstr ""
 
-#: wp-polls.php:1473
+#: fair-polls.php:1473
 msgid "Poll '%s' Deleted Successfully"
 msgstr ""
 
-#. #-#-#-#-#  plugin.pot (WP-Polls 2.67)  #-#-#-#-#
+#. #-#-#-#-#  plugin.pot (Fair-Polls 2.67)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: wp-polls.php:1502 wp-polls.php:1504 wp-polls.php:1514
-msgid "WP-Polls"
+#: fair-polls.php:1502 fair-polls.php:1504 fair-polls.php:1514
+msgid "Fair-Polls"
 msgstr ""
 
-#: wp-polls.php:1516
+#: fair-polls.php:1516
 msgid "<strong>%s</strong> poll was created."
 msgid_plural "<strong>%s</strong> polls were created."
 msgstr[0] ""
 msgstr[1] ""
 
-#: wp-polls.php:1517
+#: fair-polls.php:1517
 msgid "<strong>%s</strong> polls' answer was given."
 msgid_plural "<strong>%s</strong> polls' answers were given."
 msgstr[0] ""
 msgstr[1] ""
 
-#: wp-polls.php:1518
+#: fair-polls.php:1518
 msgid "<strong>%s</strong> vote was casted."
 msgid_plural "<strong>%s</strong> votes were casted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: wp-polls.php:1529
-msgid "WP-Polls polls"
+#: fair-polls.php:1529
+msgid "Fair-Polls polls"
 msgstr ""
 
-#: wp-polls.php:1571
+#: fair-polls.php:1571
 msgid "Title:"
 msgstr ""
 
-#: wp-polls.php:1574
+#: fair-polls.php:1574
 msgid "Display Polls Archive Link Below Poll?"
 msgstr ""
 
-#: wp-polls.php:1582
+#: fair-polls.php:1582
 msgid "Poll To Display:"
 msgstr ""
 
-#: wp-polls.php:1682
+#: fair-polls.php:1682
 msgid "How Is My Site?"
 msgstr ""
 
-#: wp-polls.php:1685
+#: fair-polls.php:1685
 msgid "Good"
 msgstr ""
 
-#: wp-polls.php:1686
+#: fair-polls.php:1686
 msgid "Excellent"
 msgstr ""
 
-#: wp-polls.php:1687
+#: fair-polls.php:1687
 msgid "Bad"
 msgstr ""
 
-#: wp-polls.php:1688
+#: fair-polls.php:1688
 msgid "Can Be Improved"
 msgstr ""
 
-#: wp-polls.php:1689
+#: fair-polls.php:1689
 msgid "No Comments"
 msgstr ""
 
@@ -1382,9 +1382,9 @@ msgstr ""
 #. Description of the plugin/theme
 msgid ""
 "Adds an AJAX poll system to your WordPress blog. You can easily include a "
-"poll into your WordPress's blog post/page. WP-Polls is extremely "
+"poll into your WordPress's blog post/page. Fair-Polls is extremely "
 "customizable via templates and css styles and there are tons of options for "
-"you to choose to ensure that WP-Polls runs the way you wanted. It now "
+"you to choose to ensure that Fair-Polls runs the way you wanted. It now "
 "supports multiple selection of answers."
 msgstr ""
 
