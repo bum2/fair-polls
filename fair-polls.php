@@ -618,9 +618,18 @@ function display_pollvote($poll_id, $display_loading = true, $changin = false) {
 		// Print Out Voting Form Footer Template
 		$temp_pollvote .= "\t\t$template_footer\n";
 		$temp_pollvote .= "\t</form>\n";
+
 		// bumbum: TODO add post reply form?
-		//$temp_pollvote .=
+		if($poll_question_postid) {
+			$temp_pollvote .= "<div id=\"polls-$poll_question_id-replymsg\" class=\"fair-polls-replymsg\" style=\"display: none;\">";
+			$temp_pollvote .= sprintf(__('You can share your voting arguments in this <a href="%s" target="_blank">related thread</a>, where the debate is taking place.', 'fair-polls'), $poll_postlink);
+			$temp_pollvote .= "</div>";
+			$temp_pollvote .= "<div id=\"polls-$poll_question_id-reqreplymsg\" class=\"fair-polls-reqreplymsg\" style=\"display: none;\">";
+			$temp_pollvote .= sprintf(__('For this vote to be valid, please share your arguments clearly in <a href="%s" target="_blank">this related thread</a> within the next 24 hours or before the voting deadline.', 'fair-polls'), $poll_postlink);
+			$temp_pollvote .= "</div>";
+		}
 		//
+
 		$temp_pollvote .= "</div>\n";
 		if($display_loading) {
 			$poll_ajax_style = get_option('poll_ajax_style');
@@ -628,17 +637,6 @@ function display_pollvote($poll_id, $display_loading = true, $changin = false) {
 				$temp_pollvote .= "<div id=\"polls-$poll_question_id-loading\" class=\"fair-polls-loading\"><img src=\"".plugins_url('fair-polls/images/loading.gif')."\" width=\"16\" height=\"16\" alt=\"".__('Loading', 'fair-polls')." ...\" title=\"".__('Loading', 'fair-polls')." ...\" class=\"fair-polls-image\" />&nbsp;".__('Loading', 'fair-polls')." ...</div>\n";
 			}
 		}
-
-		// bumbum
-		if($poll_question_postid) {
-			$temp_pollvote .= "<div id=\"polls-$poll_question_id-replymsg\" class=\"fair-polls-replymsg\" style=\"display: none;\">";
-			$temp_pollvote .= sprintf(__('You can share your voting arguments in the <a href="%s" target="_blank">related thread</a> where the debate takes place.', 'fair-polls'), $poll_postlink);
-			$temp_pollvote .= "</div>";
-			$temp_pollvote .= "<div id=\"polls-$poll_question_id-reqreplymsg\" class=\"fair-polls-reqreplymsg\" style=\"display: none;\">";
-			$temp_pollvote .= sprintf(__('For this vote to be valid, please share your arguments clearly in <a href="%s" target="_blank">this</a> related thread within the next 24 hours or before the voting deadline.', 'fair-polls'), $poll_postlink);
-			$temp_pollvote .= "</div>";
-		}
-		//
 
 	} else {
 		$temp_pollvote .= stripslashes(get_option('poll_template_disable'));
