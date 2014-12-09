@@ -100,8 +100,8 @@ function poll_result(current_poll_id) {
 	});
 }
 
-// Poll's Voting Booth  (User Click "Vote" Link)
-function poll_booth(current_poll_id) {
+// Poll's Voting Booth  (User Click "Vote" Link or "Change Vote" Link)
+function poll_booth(current_poll_id, chnge) { // bumbum chnge
 	jQuery(document).ready(function($) {
 		if(!is_being_voted) {
 			set_is_being_voted(true);
@@ -138,6 +138,9 @@ function poll_process_success(data) {
 		} else {
 			set_is_being_voted(false);
 		}
+
+		$('.fair-polls input[checked="checked"]:checked').click();
+			
 	});
 }
 
@@ -153,7 +156,7 @@ function check_vote_msg(input) {
 			if($(input).attr('checked') == 'checked'){
 				$('.fair-polls input.submit').attr('disabled', 'disabled').attr('class','disabled');
 			} else {
-				$('.fair-polls input.submit').removeAttr('disabled').attr('class','button submit');
+				$('.fair-polls input.disabled').removeAttr('disabled').attr('class','button submit');
 			}
 			if($(input).attr('reqarg') == 1){
 				$('.fair-polls-reqreplymsg').fadeTo('def', 1);//show();
