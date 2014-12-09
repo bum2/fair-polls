@@ -140,7 +140,7 @@ function poll_process_success(data) {
 		}
 
 		$('.fair-polls input[checked="checked"]:checked').click();
-			
+
 	});
 }
 
@@ -150,13 +150,13 @@ function set_is_being_voted(voted_status) {
 }
 
 // bumbum
-function check_vote_msg(input) {
+function check_vote_msg(input, chnge) {
 	jQuery(document).ready(function($) {
 		if($(input).is(':checked')) {
-			if($(input).attr('checked') == 'checked'){
+			if($(input).attr('checked') == 'checked' && chnge){
 				$('.fair-polls input.submit').attr('disabled', 'disabled').attr('class','disabled');
 			} else {
-				$('.fair-polls input.disabled').removeAttr('disabled').attr('class','button submit');
+				$('.fair-polls input[disabled="disabled"]').removeAttr('disabled').attr('class','button submit');
 			}
 			if($(input).attr('reqarg') == 1){
 				$('.fair-polls-reqreplymsg').fadeTo('def', 1);//show();
@@ -168,6 +168,7 @@ function check_vote_msg(input) {
 		} else {
 			$('.fair-polls-reqreplymsg').hide();
 			$('.fair-polls-replymsg').hide();
+			$('.fair-polls input.disabled').removeAttr('disabled').attr('class','button submit');
 		}
 	});
 }
