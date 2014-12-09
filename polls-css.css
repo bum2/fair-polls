@@ -39,7 +39,7 @@
 .fair-polls h5 small {
 	color: rgb(39, 39, 39);
 }
-.fair-polls input.submit {
+.fair-polls input.submit, .fair-polls input.disabled {
 	padding: 5px;
 	font-weight: 600;
 	margin-bottom: 0px;

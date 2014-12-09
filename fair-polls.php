@@ -498,7 +498,7 @@ function display_pollvote($poll_id, $display_loading = true, $changin = false) {
 	if(empty($poll_expiry)) {
 		$poll_end_date  = __('No Expiry', 'fair-polls');
 	} else { // bumbum: added 'ends: '
-		$poll_end_date  = __('ends: ', 'fair-polls').mysql2date(sprintf(__('%s @ %s', 'fair-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_expiry));
+		$poll_end_date  = __('Ends: ', 'fair-polls').mysql2date(sprintf(__('%s @ %s', 'fair-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_expiry));
 	}
 	$poll_multiple_ans = intval($poll_question->pollq_multiple);
 
@@ -684,7 +684,7 @@ function display_pollresult($poll_id, $user_voted = '', $display_loading = true,
 	if(empty($poll_expiry)) {
 		$poll_end_date  = __('No Expiry', 'fair-polls');
 	} else {
-		$poll_end_date  = __('ends: ', 'fair-polls').mysql2date(sprintf(__('%s @ %s', 'fair-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_expiry));
+		$poll_end_date  = __('Ends: ', 'fair-polls').mysql2date(sprintf(__('%s @ %s', 'fair-polls'), get_option('date_format'), get_option('time_format')), gmdate('Y-m-d H:i:s', $poll_expiry));
 	}
 	$poll_multiple_ans = intval($poll_question->pollq_multiple);
 	$template_question = stripslashes(get_option('poll_template_resultheader'));
