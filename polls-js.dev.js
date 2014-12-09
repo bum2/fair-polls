@@ -155,6 +155,8 @@ function check_vote_msg(input, chnge) {
 		if($(input).is(':checked')) {
 			if($(input).attr('checked') == 'checked' && chnge){
 				$('.fair-polls input.submit').attr('disabled', 'disabled').attr('class','disabled');
+				$('.fair-polls-reqreplymsg').fadeTo('def', 0);//hide();
+				$('.fair-polls-replymsg').fadeTo('def', 0);//hide();
 			} else {
 				$('.fair-polls input[disabled="disabled"]').removeAttr('disabled').attr('class','button submit');
 			}
