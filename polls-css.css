@@ -19,7 +19,7 @@
 .fair-polls-archive {
 	/* background-color: #ffffff; */
 }
-.fair-polls, .fair-polls-form {
+div.fair-polls {
 	/* background-color: #ffffff; */
 	border: 0px dashed rgb(150, 150, 150);
 	padding: 1.5em;
