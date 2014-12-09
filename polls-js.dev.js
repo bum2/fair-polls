@@ -150,6 +150,11 @@ function set_is_being_voted(voted_status) {
 function check_vote_msg(input) {
 	jQuery(document).ready(function($) {
 		if($(input).is(':checked')) {
+			if($(input).attr('checked') == 'checked'){
+				$('.fair-polls input.submit').attr('disabled', 'disabled').attr('class','disabled');
+			} else {
+				$('.fair-polls input.submit').removeAttr('disabled').attr('class','button submit');
+			}
 			if($(input).attr('reqarg') == 1){
 				$('.fair-polls-reqreplymsg').fadeTo('def', 1);//show();
 				$('.fair-polls-replymsg').hide();
@@ -161,6 +166,5 @@ function check_vote_msg(input) {
 			$('.fair-polls-reqreplymsg').hide();
 			$('.fair-polls-replymsg').hide();
 		}
-
 	});
 }
