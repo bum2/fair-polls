@@ -2,7 +2,7 @@
 /*
 Plugin Name: Fair-Polls
 Plugin URI: https://github.com/bum2/fair-polls
-Description: Adapted from GaMerZ's WP-Polls v2.68 (forking https://github.com/lesterchan/fair-polls) to meet the Fair.Coop requirements: Allow to set 'full-member' as the minimum role for voting, and show results to others. Allows users to change their vote, allows admins to delete only one user vote, also allows to link a related post thread (topic on a bbp forum, etc) and allows to set any answer (vote) as 'requiring arguments' (a reply or comment on the related debate post) from the same user, in a timespan. Fair-Polls (inheriting from WP-Polls) is customizable via templates and css, and supports multiple selection of answers.
+Description: Adapted from GaMerZ's WP-Polls v2.68 (forking https://github.com/lesterchan/fair-polls) to meet the Fair.Coop requirements: Allow to set 'full-member' as the minimum role for voting, and show results to others. Allows users to change their vote, allows admins to delete only one user vote, also allows to link a related post thread (topic on a bbp forum, etc) and allows to set any answer (vote) as 'requiring arguments' (eg. a reply or comment from the same user on the related debate post). Fair-Polls (inheriting from WP-Polls) is customizable via templates and css, and supports multiple selection of answers.
 Version: 0.3
 Author: Bumbum
 Author URI: https://fair.coop

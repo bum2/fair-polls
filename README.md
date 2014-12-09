@@ -1,5 +1,5 @@
 # Fair-Polls
-Contributors: GamerZ, Bumbum  
+Contributors: GaMerZ, Bumbum  
 Donate link: http://lesterchan.net/site/donation/  
 Tags: poll, polls, polling, vote, booth, democracy, ajax, survey, post, widget  
 Requires at least: 3.9  
@@ -9,7 +9,7 @@ Stable tag: 0.2
 Adds an AJAX poll system to your WordPress blog. You can also easily add a poll into your WordPress's blog post/page.
 
 ## Description
-Adapted from GaMerZ's WP-Polls v2.68 (forking https://github.com/lesterchan/fair-polls) to meet the Fair.Coop requirements: Allow to set 'full-member' as the minimum role for voting, and show results to others. Allows to delete only one user vote, also allows to link a related post thread (topic on a bbp forum, etc) and allows to set any answer (vote) as 'requiring arguments' (a reply or comment on the related debate post) from the same user, in a timespan. Fair-Polls (inheriting from WP-Polls) is customizable via templates and css, and supports multiple selection of answers.
+Adapted from GaMerZ's WP-Polls v2.68 (forking https://github.com/lesterchan/fair-polls) to meet the Fair.Coop requirements: Allow to set 'full-member' as the minimum role for voting, and show results to others. Allows to delete only one user vote, also allows to link a related post thread (topic on a bbp forum, etc) and allows to set any answer (vote) as 'requiring arguments' (eg. a reply or comment from the same user on the related debate post). Fair-Polls (inheriting from WP-Polls) is customizable via templates and css, and supports multiple selection of answers.
 
 ### Development
 [https://github.com/bum2/fair-polls](https://github.com/bum2/fair-polls "https://github.com/bum2/fair-polls")
@@ -23,17 +23,28 @@ Adapted from GaMerZ's WP-Polls v2.68 (forking https://github.com/lesterchan/fair
 * Plugin icon by [Freepik](http://www.freepik.com) from [Flaticon](http://www.flaticon.com)
 
 ### Donations
-I spent most of my free time creating, updating, maintaining and supporting these plugins, if you really love my plugins and could spare me a couple of bucks, I will really appericiate it. If not feel free to use it without any obligations.
+GaMerZ said: I spent most of my free time creating, updating, maintaining and supporting these plugins, if you really love my plugins and could spare me a couple of bucks, I will really appericiate it. If not feel free to use it without any obligations.
 
 ## Changelog
-### Version 2.68
+### Fair-Polls Version 0.3
+* NEW: Allows voters to Change their Vote
+
+### Fair-Polls Version 0.2
+* NEW: Allows to link a related post to each poll
+* NEW: Allows to mark any answer as 'requiring arguments'
+
+### Fair-Polls Version 0.1
+* NEW: Allows to set 'full-member' as the minimun role for voting
+* NEW: Allows admins to Delete only one vote
+
+
+### WP-Polls Version 2.68
 * NEW: Poll answer percentage are now not rounded off, previously it was always rounded to add up to 100%
 * NEW: Support WordPress MultiSite Network Activation
 * NEW: Uses native WordPress uninstall.php
 * NEW: Show shortcode in success message after creating a poll
 * NEW: Checks and ensure that Poll Question and Poll Answers are not empty
 * NEW: Checks whether Poll is closed before checking whether user has voted
-
 
 ### Version 2.67
 * NEW: Use POST for View Results and Vote link
@@ -277,9 +288,9 @@ I spent most of my free time creating, updating, maintaining and supporting thes
 ## Installation
 
 1. Open `wp-content/plugins` Folder
-2. Put: `Folder: wp-polls`
-3. Activate `WP-Polls` Plugin
-4. Go to `WP-Admin -> WP-Polls`
+2. Put: `Folder: fair-polls`
+3. Activate `Fair-Polls` Plugin
+4. Go to `WP-Admin -> Fair-Polls`
 
 ### General Usage (Without Widget)
 1. Open `wp-content/themes/<YOUR THEME NAME>/sidebar.php`
@@ -311,10 +322,10 @@ I spent most of my free time creating, updating, maintaining and supporting thes
 
 ## Upgrading
 
-1. Deactivate `WP-Polls` Plugin
+1. Deactivate `Fair-Polls` Plugin
 2. Open `wp-content/plugins` Folder
-3. Put/Overwrite: `Folder: wp-polls`
-4. Activate `WP-Polls` Plugin
+3. Put/Overwrite: `Folder: fair-polls`
+4. Activate `Fair-Polls` Plugin
 5. Go to `WP-Admin -> Polls -> Polls Templates` and restore all the template variables to `Default`
 6. Go to `WP-Admin -> Appearance -> Widgets` and re-add the Poll Widget
 
@@ -351,10 +362,10 @@ N/A
 ### Why doesn't my poll's answers add up to 100%?
 * It is because of rounding issues. To make it always round up to 100%, the last poll's answer will get the remainding percentage added to it. To enable this feature, add this to your theme's functions.php: `add_filter( 'wp_polls_round_percentage', '__return_true' );`
 
-### How Does WP-Polls Load CSS?
-* WP-Polls will load `polls-css.css` from your theme's directory if it exists.
-* If it doesn't exists, it will just load the default `polls-css.css` that comes with WP-Polls.
-* This will allow you to upgrade WP-Polls without worrying about overwriting your polls styles that you have created.
+### How Does Fair-Polls Load CSS?
+* Fair-Polls will load `polls-css.css` from your theme's directory if it exists.
+* If it doesn't exists, it will just load the default `polls-css.css` that comes with Fair-Polls.
+* This will allow you to upgrade Fair-Polls without worrying about overwriting your polls styles that you have created.
 
 ### Why In Internet Explorer (IE) The poll's Text Appear Jagged?
 * To solve this issue, Open poll-css.css
@@ -367,18 +378,18 @@ N/A
 * Add to the end of the file:
 
 <code>
-.wp-polls-ul li:nth-child(01) .pollbar{ background:#8FA0C5}
-.wp-polls-ul li:nth-child(02) .pollbar{ background:#FF8}
-.wp-polls-ul li:nth-child(03) .pollbar{ background:#ff8a3b}
-.wp-polls-ul li:nth-child(04) .pollbar{ background:#a61e2a}
-.wp-polls-ul li:nth-child(05) .pollbar{ background:#4ebbff}
-.wp-polls-ul li:nth-child(06) .pollbar{ background:#fbca54}
-.wp-polls-ul li:nth-child(07) .pollbar{ background:#aad34f}
-.wp-polls-ul li:nth-child(08) .pollbar{ background:#66cc9a}
-.wp-polls-ul li:nth-child(09) .pollbar{ background:#98CBCB}
-.wp-polls-ul li:nth-child(10) .pollbar{ background:#a67c52}
-.wp-polls-ul li .pollbar{ transition: background 0.7s ease-in-out }
-.wp-polls-ul li .pollbar:hover{ background:#F00 }
+.fair-polls-ul li:nth-child(01) .pollbar{ background:#8FA0C5}
+.fair-polls-ul li:nth-child(02) .pollbar{ background:#FF8}
+.fair-polls-ul li:nth-child(03) .pollbar{ background:#ff8a3b}
+.fair-polls-ul li:nth-child(04) .pollbar{ background:#a61e2a}
+.fair-polls-ul li:nth-child(05) .pollbar{ background:#4ebbff}
+.fair-polls-ul li:nth-child(06) .pollbar{ background:#fbca54}
+.fair-polls-ul li:nth-child(07) .pollbar{ background:#aad34f}
+.fair-polls-ul li:nth-child(08) .pollbar{ background:#66cc9a}
+.fair-polls-ul li:nth-child(09) .pollbar{ background:#98CBCB}
+.fair-polls-ul li:nth-child(10) .pollbar{ background:#a67c52}
+.fair-polls-ul li .pollbar{ transition: background 0.7s ease-in-out }
+.fair-polls-ul li .pollbar:hover{ background:#F00 }
 </code>
 
 ### Polls Stats (Outside WP Loop)
