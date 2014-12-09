@@ -159,13 +159,13 @@ function check_vote_msg(input, chnge) {
 				$('.fair-polls-replymsg').fadeTo('def', 0);//hide();
 			} else {
 				$('.fair-polls input[disabled="disabled"]').removeAttr('disabled').attr('class','button submit');
-			}
-			if($(input).attr('reqarg') == 1){
-				$('.fair-polls-reqreplymsg').fadeTo('def', 1);//show();
-				$('.fair-polls-replymsg').hide();
-			} else {
-				$('.fair-polls-replymsg').fadeTo('def', 1);//show();
-				$('.fair-polls-reqreplymsg').hide();
+				if($(input).attr('reqarg') == 1){
+					$('.fair-polls-reqreplymsg').fadeTo('def', 1);//show();
+					$('.fair-polls-replymsg').hide();
+				} else {
+					$('.fair-polls-replymsg').fadeTo('def', 1);//show();
+					$('.fair-polls-reqreplymsg').hide();
+				}
 			}
 		} else {
 			$('.fair-polls-reqreplymsg').hide();
