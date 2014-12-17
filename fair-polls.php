@@ -621,11 +621,22 @@ function display_pollvote($poll_id, $display_loading = true, $changin = false) {
 
 		// bumbum: TODO add post reply form?
 		if($poll_question_postid) {
-			$temp_pollvote .= "<div id=\"polls-$poll_question_id-replymsg\" class=\"fair-polls-replymsg\" style=\"display: none;\">";
-			$temp_pollvote .= sprintf(__('You can share your voting arguments in this <a href="%s" target="_blank">related thread</a>, where the debate is taking place.', 'fair-polls'), $poll_postlink);
+			$template_clickanswer = stripslashes(get_option('poll_template_clickanswer'));
+			$template_clickanswer = str_replace("%POST_LINK%", $poll_postlink, $template_clickanswer);
+			$template_clickanswer = str_replace("%POST_NAME%", $poll_postid_text, $template_clickanswer);
+
+			$temp_pollvote .= "<div id=\"polls-$poll_question_id-replymsg\" class=\"fair-polls-replymsg\" style=\"display: none;\">\n";
+			$temp_pollvote .= "\t\t$template_clickanswer\n";
+			//$temp_pollvote .= sprintf(__('You can share your voting arguments in this <a href="%s" target="_blank">related thread</a>, where the debate is taking place.', 'fair-polls'), $poll_postlink);
 			$temp_pollvote .= "</div>";
-			$temp_pollvote .= "<div id=\"polls-$poll_question_id-reqreplymsg\" class=\"fair-polls-reqreplymsg\" style=\"display: none;\">";
-			$temp_pollvote .= sprintf(__('For this vote to be valid, please share your arguments clearly in <a href="%s" target="_blank">this related thread</a> within the next 24 hours or before the voting deadline.', 'fair-polls'), $poll_postlink);
+
+			$template_clickreqanswer = stripslashes(get_option('poll_template_clickreqanswer'));
+			$template_clickreqanswer = str_replace("%POST_LINK%", $poll_postlink, $template_clickreqanswer);
+			$template_clickreqanswer = str_replace("%POST_NAME%", $poll_postid_text, $template_clickreqanswer);
+
+			$temp_pollvote .= "<div id=\"polls-$poll_question_id-reqreplymsg\" class=\"fair-polls-reqreplymsg\" style=\"display: none;\">\n";
+			$temp_pollvote .= "\t\t$template_clickreqanswer\n";
+			//$temp_pollvote .= sprintf(__('For this vote to be valid, please share your arguments clearly in <a href="%s" target="_blank">this related thread</a> within the next 24 hours or before the voting deadline.', 'fair-polls'), $poll_postlink);
 			$temp_pollvote .= "</div>";
 		}
 		//
@@ -2036,6 +2047,12 @@ function polls_activate() {
 
 	add_option('poll_template_disable', __('Sorry, there are no polls available at the moment.', 'fair-polls'));
 	add_option('poll_template_error', __('An error has occurred when processing your poll.', 'fair-polls'));
+
+	// bumbum
+	add_option('poll_template_clickanswer', __('You can share your voting arguments in this <a href="%POST_LINK%" target="_blank">related thread</a>, where the debate is taking place.', 'fair-polls'));
+	add_option('poll_template_clickreqanswer', __('For this vote to be valid, please share your arguments clearly in <a href="%POST_LINK%" target="_blank">this related thread</a> within the next 24 hours or before the voting deadline.', 'fair-polls'));
+	//
+
 	add_option('poll_currentpoll', 0);
 	add_option('poll_latestpoll', 1);
 	add_option('poll_archive_perpage', 5);

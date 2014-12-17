@@ -48,6 +48,8 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 	$poll_template_pollarchivepagingfooter = trim($_POST['poll_template_pollarchivepagingfooter']);
 	$poll_template_disable = trim($_POST['poll_template_disable']);
 	$poll_template_error = trim($_POST['poll_template_error']);
+	$poll_template_clickanswer = trim($_POST['poll_template_clickanswer']); // bumbum
+	$poll_template_clickreqanswer = trim($_POST['poll_template_clickreqanswer']); // bumbum
 	$update_poll_queries = array();
 	$update_poll_text = array();
 	$update_poll_queries[] = update_option('poll_template_voteheader', $poll_template_voteheader);
@@ -68,6 +70,8 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 	$update_poll_queries[] = update_option('poll_template_pollarchivepagingfooter', $poll_template_pollarchivepagingfooter);
 	$update_poll_queries[] = update_option('poll_template_disable', $poll_template_disable);
 	$update_poll_queries[] = update_option('poll_template_error', $poll_template_error);
+	$update_poll_queries[] = update_option('poll_template_clickanswer', $poll_template_clickanswer); // bumbum
+	$update_poll_queries[] = update_option('poll_template_clickreqanswer', $poll_template_clickreqanswer); // bumbum
 	$update_poll_text[] = __('Voting Form Header Template', 'fair-polls');
 	$update_poll_text[] = __('Voting Form Body Template', 'fair-polls');
 	$update_poll_text[] = __('Voting Form Body2 Template', 'fair-polls'); // bumbum
@@ -86,6 +90,8 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 	$update_poll_text[] = __('Poll Archive Paging Footer Template', 'fair-polls');
 	$update_poll_text[] = __('Poll Disabled Template', 'fair-polls');
 	$update_poll_text[] = __('Poll Error Template', 'fair-polls');
+	$update_poll_text[] = __('Click Answer Footer Template', 'fair-polls'); // bumbum
+	$update_poll_text[] = __('Click Req.Arg Answer Footer Template', 'fair-polls'); // bumbum
 	$i=0;
 	$text = '';
 	foreach($update_poll_queries as $update_poll_query) {
@@ -161,6 +167,12 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 				break;
 			case "error":
 				default_template = "<?php _e('An error has occurred when processing your poll.', 'fair-polls'); ?>";
+				break;
+			case "clickanswer":
+				default_template = "<?php _e('You can share your voting arguments in this <a href="%POST_LINK%" target="_blank">related thread</a>, where the debate is taking place.', 'fair-polls'); ?>";
+				break;
+			case "clickreqanswer":
+				default_template = "<?php _e('For this vote to be valid, please share your arguments clearly in <a href="%POST_LINK%" target="_blank">this related thread</a> within the next 24 hours or before the voting deadline.', 'fair-polls'); ?>";
 				break;
 		}
 		jQuery("#poll_template_" + template).val(default_template);
@@ -626,6 +638,28 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'fair-polls'); ?>" onclick="poll_default_templates('error');" class="button" />
 			</td>
 			<td valign="top"><textarea cols="80" rows="15" id="poll_template_error" name="poll_template_error"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_error'))); ?></textarea></td>
+		</tr>
+		<tr>
+			<td width="30%" valign="top">
+				<strong><?php _e('Click Answer Message', 'fair-polls'); ?></strong><br /><?php _e('Displayed When User Clicks An Answer', 'fair-polls'); ?><br /><br />
+				<?php _e('Allowed Variables:', 'fair-polls'); ?><br />
+				<p style="margin: 2px 0">- %POST_NAME%</p>
+				<p style="margin: 2px 0">- %POST_LINK%</p>
+				<br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'fair-polls'); ?>" onclick="poll_default_templates('clickanswer');" class="button" />
+			</td>
+			<td valign="top"><textarea cols="80" rows="15" id="poll_template_clickanswer" name="poll_template_clickanswer"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_clickanswer'))); ?></textarea></td>
+		</tr>
+		<tr>
+			<td width="30%" valign="top">
+				<strong><?php _e('Click Req.Arg. Answer Message', 'fair-polls'); ?></strong><br /><?php _e('Displayed When User Clicks An Answer Requiring Arguments', 'fair-polls'); ?><br /><br />
+				<?php _e('Allowed Variables:', 'fair-polls'); ?><br />
+				<p style="margin: 2px 0">- %POST_NAME%</p>
+				<p style="margin: 2px 0">- %POST_LINK%</p>
+				<br /><br />
+				<input type="button" name="RestoreDefault" value="<?php _e('Restore Default Template', 'fair-polls'); ?>" onclick="poll_default_templates('clickreqanswer');" class="button" />
+			</td>
+			<td valign="top"><textarea cols="80" rows="15" id="poll_template_clickreqanswer" name="poll_template_clickreqanswer"><?php echo htmlspecialchars(stripslashes(get_option('poll_template_clickreqanswer'))); ?></textarea></td>
 		</tr>
 	</table>
 	<p class="submit">
